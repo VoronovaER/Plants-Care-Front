@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">test1</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="title_calendar">Календарь</string>
+    <string name="title_catalog">Каталог</string>
+    <string name="title_greenhouse">Теплица</string>
+</resources>
