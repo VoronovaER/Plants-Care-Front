@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -11,14 +12,26 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.me.test1.MainActivity;
 import com.me.test1.R;
 import com.me.test1.databinding.FragmentDashboardBinding;
+import com.me.test1.dto.PlantTypeListRecordDTO;
+import com.me.test1.network.PlantTypeApi;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class DashboardFragment extends Fragment {
     protected RecyclerView.LayoutManager manager;
     protected PlantTypeAdapter adapter;
+    List<PlantTypeListRecordDTO> dataset;
 
     private FragmentDashboardBinding binding;
 
@@ -30,24 +43,34 @@ public class DashboardFragment extends Fragment {
         binding = FragmentDashboardBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        //final TextView textView = binding.textDashboard;
-        //dashboardViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
-        manager = new LinearLayoutManager(requireContext());
-        ArrayList<String> dataset = buildList(50);
-        adapter = new PlantTypeAdapter(dataset);
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("http://192.168.134.61:8080/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        PlantTypeApi plantTypeApi = retrofit.create(PlantTypeApi.class);
+
+        dataset = new ArrayList<>();
         RecyclerView rv = root.findViewById(R.id.recycler);
-        rv.setAdapter(adapter);
+
+        manager = new LinearLayoutManager(requireContext());
         rv.setLayoutManager(manager);
+        adapter = new PlantTypeAdapter(dataset);
+        rv.setAdapter(adapter);
+        plantTypeApi.getPlantTypes().enqueue(new Callback<List<PlantTypeListRecordDTO>>() {
+            @Override
+            public void onResponse(Call<List<PlantTypeListRecordDTO>> call, Response<List<PlantTypeListRecordDTO>> response) {
+                dataset.addAll(response.body());
+                rv.getAdapter().notifyDataSetChanged();
+
+            }
+
+            @Override
+            public void onFailure(Call<List<PlantTypeListRecordDTO>> call, Throwable t) {
+                Toast.makeText(requireContext(), "An error occurred during networking", Toast.LENGTH_SHORT).show();
+            }
+        });
+
         return root;
-    }
-
-
-    ArrayList<String> buildList(int n){
-        ArrayList<String> list = new ArrayList<>();
-        for(int i = 1; i <= n; i++){
-            list.add(String.format("Категория %d", i));
-        }
-        return list;
     }
 
     @Override

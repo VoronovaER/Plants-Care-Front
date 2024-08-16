@@ -8,11 +8,13 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.me.test1.R;
+import com.me.test1.dto.PlantTypeListRecordDTO;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class PlantTypeAdapter extends RecyclerView.Adapter<PlantTypeAdapter.ViewHolder>{
-    protected ArrayList<String> dataset;
+    protected List<PlantTypeListRecordDTO> dataset;
     public static class ViewHolder extends RecyclerView.ViewHolder {
         private final TextView textView;
 
@@ -27,7 +29,7 @@ public class PlantTypeAdapter extends RecyclerView.Adapter<PlantTypeAdapter.View
             return textView;
         }
     }
-    public PlantTypeAdapter(ArrayList<String> dataSet) {
+    public PlantTypeAdapter(List<PlantTypeListRecordDTO> dataSet) {
         dataset = dataSet;
     }
 
@@ -47,7 +49,7 @@ public class PlantTypeAdapter extends RecyclerView.Adapter<PlantTypeAdapter.View
 
         // Get element from your dataset at this position and replace the
         // contents of the view with that element
-        viewHolder.getTextView().setText(dataset.get(position));
+        viewHolder.getTextView().setText(dataset.get(position).getName());
     }
 
     // Return the size of your dataset (invoked by the layout manager)
