@@ -1,5 +1,6 @@
 package com.me.test1.ui.dashboard;
 
+import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PlantTypeAdapter extends RecyclerView.Adapter<PlantTypeAdapter.ViewHolder>{
+    interface OnClickListener{
+        void onClick(PlantTypeListRecordDTO plantType, int position);
+    }
+
+    private final OnClickListener onClickListener;
     protected List<PlantTypeListRecordDTO> dataset;
     public static class ViewHolder extends RecyclerView.ViewHolder {
         private final TextView textView;
@@ -29,8 +35,10 @@ public class PlantTypeAdapter extends RecyclerView.Adapter<PlantTypeAdapter.View
             return textView;
         }
     }
-    public PlantTypeAdapter(List<PlantTypeListRecordDTO> dataSet) {
+    public PlantTypeAdapter(List<PlantTypeListRecordDTO> dataSet, OnClickListener onClickListener) {
+
         dataset = dataSet;
+        this.onClickListener = onClickListener;
     }
 
     // Create new views (invoked by the layout manager)
@@ -43,16 +51,18 @@ public class PlantTypeAdapter extends RecyclerView.Adapter<PlantTypeAdapter.View
         return new ViewHolder(view);
     }
 
-    // Replace the contents of a view (invoked by the layout manager)
     @Override
-    public void onBindViewHolder(ViewHolder viewHolder, final int position) {
-
-        // Get element from your dataset at this position and replace the
-        // contents of the view with that element
+    public void onBindViewHolder(ViewHolder viewHolder, @SuppressLint("RecyclerView") final int position) {
         viewHolder.getTextView().setText(dataset.get(position).getName());
+        viewHolder.itemView.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v)
+            {
+                onClickListener.onClick(dataset.get(position), position);
+            }
+        });
     }
 
-    // Return the size of your dataset (invoked by the layout manager)
     @Override
     public int getItemCount() {
         return dataset.size();

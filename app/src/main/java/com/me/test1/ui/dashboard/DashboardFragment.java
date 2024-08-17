@@ -12,13 +12,11 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.me.test1.MainActivity;
 import com.me.test1.R;
 import com.me.test1.databinding.FragmentDashboardBinding;
 import com.me.test1.dto.PlantTypeListRecordDTO;
 import com.me.test1.network.PlantTypeApi;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -51,10 +49,18 @@ public class DashboardFragment extends Fragment {
 
         dataset = new ArrayList<>();
         RecyclerView rv = root.findViewById(R.id.recycler);
+        PlantTypeAdapter.OnClickListener clickListener = new PlantTypeAdapter.OnClickListener() {
+            @Override
+            public void onClick(PlantTypeListRecordDTO plantType, int position) {
+
+                Toast.makeText(requireContext(), "Был выбран пункт " + plantType.getName(),
+                        Toast.LENGTH_SHORT).show();
+            }
+        };
 
         manager = new LinearLayoutManager(requireContext());
         rv.setLayoutManager(manager);
-        adapter = new PlantTypeAdapter(dataset);
+        adapter = new PlantTypeAdapter(dataset, clickListener);
         rv.setAdapter(adapter);
         plantTypeApi.getPlantTypes().enqueue(new Callback<List<PlantTypeListRecordDTO>>() {
             @Override
