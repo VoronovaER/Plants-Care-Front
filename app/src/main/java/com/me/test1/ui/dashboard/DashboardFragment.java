@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.me.test1.R;
 import com.me.test1.databinding.FragmentDashboardBinding;
 import com.me.test1.dto.PlantTypeListRecordDTO;
+import com.me.test1.network.ApiClient;
 import com.me.test1.network.PlantTypeApi;
 
 import java.util.ArrayList;
@@ -32,6 +33,7 @@ public class DashboardFragment extends Fragment {
     List<PlantTypeListRecordDTO> dataset;
 
     private FragmentDashboardBinding binding;
+    PlantTypeApi plantTypeApi;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -41,11 +43,7 @@ public class DashboardFragment extends Fragment {
         binding = FragmentDashboardBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://192.168.134.61:8080/")
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-        PlantTypeApi plantTypeApi = retrofit.create(PlantTypeApi.class);
+        plantTypeApi = ApiClient.getClient().create(PlantTypeApi.class);
 
         dataset = new ArrayList<>();
         RecyclerView rv = root.findViewById(R.id.recycler);
