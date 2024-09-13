@@ -5,6 +5,7 @@ import android.os.Bundle;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -12,6 +13,8 @@ import androidx.navigation.ui.NavigationUI;
 
 import com.me.test1.databinding.ActivityMainBinding;
 import com.me.test1.network.PlantTypeApi;
+import com.me.test1.ui.dashboard.PlantTypeCardFragment;
+import com.me.test1.ui.dashboard.PlantTypeListFragment;
 
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -34,6 +37,20 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_main);
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(binding.navView, navController);
+    }
+
+    public void replaceFragment1(){
+        FragmentTransaction t = getSupportFragmentManager().beginTransaction();
+        PlantTypeCardFragment mFrag = new PlantTypeCardFragment();
+        t.replace(R.id.frame_layout, mFrag);
+        t.commit();
+    }
+
+    public void replaceFragment2(){
+        FragmentTransaction t = getSupportFragmentManager().beginTransaction();
+        PlantTypeListFragment mFrag = new PlantTypeListFragment();
+        t.replace(R.id.frame_layout, mFrag);
+        t.commit();
     }
 
 
