@@ -16,6 +16,7 @@ import com.me.test1.dto.PlantTypeListRecordDTO;
 import com.me.test1.network.PlantTypeApi;
 import com.me.test1.ui.dashboard.PlantTypeCardFragment;
 import com.me.test1.ui.dashboard.PlantTypeListFragment;
+import com.me.test1.ui.home.FloristPlantsFragment;
 
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -51,6 +52,13 @@ public class MainActivity extends AppCompatActivity {
         FragmentTransaction t = getSupportFragmentManager().beginTransaction();
         PlantTypeListFragment mFrag = new PlantTypeListFragment();
         t.replace(R.id.frame_layout, mFrag);
+        t.commit();
+    }
+
+    public void replaceFragmentHome(){
+        FragmentTransaction t = getSupportFragmentManager().beginTransaction();
+        FloristPlantsFragment mFrag = new FloristPlantsFragment();
+        t.replace(R.id.home_frame_layout, mFrag);
         t.commit();
     }
 
