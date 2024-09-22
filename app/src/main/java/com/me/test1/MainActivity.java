@@ -12,6 +12,7 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import com.me.test1.databinding.ActivityMainBinding;
+import com.me.test1.dto.PlantTypeListRecordDTO;
 import com.me.test1.network.PlantTypeApi;
 import com.me.test1.ui.dashboard.PlantTypeCardFragment;
 import com.me.test1.ui.dashboard.PlantTypeListFragment;
@@ -39,9 +40,9 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupWithNavController(binding.navView, navController);
     }
 
-    public void replaceFragment1(){
+    public void replaceFragment1(PlantTypeListRecordDTO plantType){
         FragmentTransaction t = getSupportFragmentManager().beginTransaction();
-        PlantTypeCardFragment mFrag = new PlantTypeCardFragment();
+        PlantTypeCardFragment mFrag = new PlantTypeCardFragment(plantType);
         t.replace(R.id.frame_layout, mFrag);
         t.commit();
     }

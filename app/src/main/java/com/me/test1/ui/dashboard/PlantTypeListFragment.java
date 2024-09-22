@@ -49,9 +49,7 @@ public class PlantTypeListFragment extends Fragment {
         PlantTypeAdapter.OnClickListener clickListener = new PlantTypeAdapter.OnClickListener() {
             @Override
             public void onClick(PlantTypeListRecordDTO plantType, int position) {
-                ((MainActivity)getActivity()).replaceFragment1();
-                Toast.makeText(requireContext(), "Был выбран пункт " + plantType.getName(),
-                        Toast.LENGTH_SHORT).show();
+                ((MainActivity)getActivity()).replaceFragment1(plantType);
             }
         };
 

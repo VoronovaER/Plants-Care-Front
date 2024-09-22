@@ -7,28 +7,69 @@
     tools:context=".ui.dashboard.PlantTypeCardFragment">
 
     <ImageView
-        android:id="@+id/imageView2"
-        android:layout_width="212dp"
-        android:layout_height="202dp"
-        tools:src="@tools:sample/avatars"
-        android:layout_marginTop="10dp"
-        android:layout_gravity="center_horizontal"/>
+        android:id="@+id/PlantTypeImage"
+        android:layout_width="300dp"
+        android:layout_height="200dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="40dp"
+        tools:src="@tools:sample/avatars" />
+
+    <TextView
+        android:id="@+id/PlantTypeName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="250dp"
+        android:layout_gravity="center_horizontal"
+        android:textStyle="bold"
+        android:text  = "Название"
+        android:textSize = "30sp"
+        android:textColor="@color/main_green"/>
+
+    <Button
+        android:id="@+id/btnFrag1"
+        android:layout_width="75dp"
+        android:layout_height="33dp"
+        android:textSize = "10sp"
+        android:textColor="@color/main_green"
+        android:backgroundTint="@color/white"
+        android:layout_gravity="start"
+        android:layout_marginTop="0dp"
+        android:text="Назад" />
+
+    <TextView
+        android:id="@+id/PlantTypeLatinName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="295dp"
+        android:textStyle="italic"
+        android:textSize="18sp"
+        android:layout_gravity="center_horizontal"
+        android:text="Латинское название" />
 
     <TextView
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="232dp"
-        android:layout_gravity="center_horizontal"
-        android:textStyle="bold"
-        android:text  = "Название"/>
+        android:layout_marginTop="380dp"
+        android:layout_marginStart="20dp"
+        android:text="Описание"
+        android:textSize="16sp"
+        android:textColor="@color/main_green"
+        android:textStyle="bold"/>
 
-    <Button
-        android:id="@+id/btnFrag1"
+    <TextView
+        android:id="@+id/PlantTypeDescription"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Назад"
-        android:layout_marginTop="600dp"
+        android:layout_marginTop="410dp"
+        android:layout_marginStart="20dp"
+        android:text="Текст описания" />
+
+    <Button
+        android:id="@+id/btnAdd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="330dp"
         android:layout_gravity="center_horizontal"
-        />
+        android:text="+Добавить" />
 </FrameLayout>

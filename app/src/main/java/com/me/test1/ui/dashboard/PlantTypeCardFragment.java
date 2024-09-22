@@ -1,6 +1,8 @@
 package com.me.test1.ui.dashboard;
 
 import android.annotation.SuppressLint;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -9,14 +11,38 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.me.test1.MainActivity;
 import com.me.test1.R;
+import com.me.test1.dto.PlantTypeDTO;
+import com.me.test1.dto.PlantTypeListRecordDTO;
+import com.me.test1.network.ApiClient;
+import com.me.test1.network.PlantTypeApi;
+
+import com.squareup.picasso.Picasso;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class PlantTypeCardFragment extends Fragment {
 
     private Button btnFrag1;;
+    private Button btnAdd;
+    private PlantTypeListRecordDTO plantType;;
+    private TextView name;
+    private TextView latinName;
+    private TextView description;
+    private ImageView image;
+    PlantTypeApi plantTypeApi;
+
+    public PlantTypeCardFragment(PlantTypeListRecordDTO plantType) {
+        this.plantType = plantType;
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,16 +54,34 @@ public class PlantTypeCardFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_plant_type_card, container, false);
 
-        btnFrag1 = view.findViewById(R.id.btnFrag1);
-
-        btnFrag1.setOnClickListener(new View.OnClickListener() {
+        name = view.findViewById(R.id.PlantTypeName);
+        latinName = view.findViewById(R.id.PlantTypeLatinName);
+        description = view.findViewById(R.id.PlantTypeDescription);
+        image = view.findViewById(R.id.PlantTypeImage);
+        plantTypeApi = ApiClient.getClient().create(PlantTypeApi.class);
+        plantTypeApi.getPlantType(plantType.getId()).enqueue(new Callback<PlantTypeDTO>() {
             @Override
-            public void onClick(View v) {
-                ((MainActivity) getActivity()).replaceFragment2();
-                Toast.makeText(requireContext(), "Кнопка нажалась",
-                        Toast.LENGTH_SHORT).show();
+            public void onResponse(Call<PlantTypeDTO> call, Response<PlantTypeDTO> response) {
+                    PlantTypeDTO plantTypeDTO = response.body();
+                    name.setText(plantTypeDTO.getName());
+                    latinName.setText(plantTypeDTO.getLatinName());
+                    description.setText(plantTypeDTO.getDescription());
+                   Picasso.with(requireContext())
+                        .load(plantTypeDTO.getUrl())
+                        .resize(300,200)
+                        .into(image);
+            }
+
+            @Override
+            public void onFailure(Call<PlantTypeDTO> call, Throwable t) {
+                Toast.makeText(getContext(), "Error", Toast.LENGTH_SHORT).show();
             }
         });
+        btnFrag1 = view.findViewById(R.id.btnFrag1);
+        btnAdd = view.findViewById(R.id.btnAdd);
+
+        btnFrag1.setOnClickListener(v -> ((MainActivity) getActivity()).replaceFragment2());
+        btnAdd.setOnClickListener(v -> Toast.makeText(getContext(), "Added " + name.getText(), Toast.LENGTH_SHORT).show());
         return view;
     }
 }
