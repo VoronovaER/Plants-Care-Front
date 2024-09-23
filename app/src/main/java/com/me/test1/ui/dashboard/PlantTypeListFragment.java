@@ -13,7 +13,7 @@ import android.widget.Toast;
 
 import com.me.test1.MainActivity;
 import com.me.test1.R;
-import com.me.test1.dto.PlantTypeListRecordDTO;
+import com.me.test1.dto.planttype.PlantTypeListRecordDTO;
 import com.me.test1.network.ApiClient;
 import com.me.test1.network.PlantTypeApi;
 

@@ -1,8 +1,6 @@
 package com.me.test1.ui.dashboard;
 
 import android.annotation.SuppressLint;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -17,8 +15,8 @@ import android.widget.Toast;
 
 import com.me.test1.MainActivity;
 import com.me.test1.R;
-import com.me.test1.dto.PlantTypeDTO;
-import com.me.test1.dto.PlantTypeListRecordDTO;
+import com.me.test1.dto.planttype.PlantTypeDTO;
+import com.me.test1.dto.planttype.PlantTypeListRecordDTO;
 import com.me.test1.network.ApiClient;
 import com.me.test1.network.PlantTypeApi;
 

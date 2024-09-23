@@ -9,9 +9,8 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.me.test1.R;
-import com.me.test1.dto.PlantTypeListRecordDTO;
+import com.me.test1.dto.planttype.PlantTypeListRecordDTO;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class PlantTypeAdapter extends RecyclerView.Adapter<PlantTypeAdapter.ViewHolder>{

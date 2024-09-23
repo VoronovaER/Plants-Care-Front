@@ -1,4 +1,4 @@
-package com.me.test1.dto;
+package com.me.test1.dto.planttype;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

@@ -12,14 +12,10 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import com.me.test1.databinding.ActivityMainBinding;
-import com.me.test1.dto.PlantTypeListRecordDTO;
-import com.me.test1.network.PlantTypeApi;
+import com.me.test1.dto.planttype.PlantTypeListRecordDTO;
 import com.me.test1.ui.dashboard.PlantTypeCardFragment;
 import com.me.test1.ui.dashboard.PlantTypeListFragment;
 import com.me.test1.ui.home.FloristPlantsFragment;
-
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -55,9 +51,9 @@ public class MainActivity extends AppCompatActivity {
         t.commit();
     }
 
-    public void replaceFragmentHome(){
+    public void replaceFragmentHome(Long id){
         FragmentTransaction t = getSupportFragmentManager().beginTransaction();
-        FloristPlantsFragment mFrag = new FloristPlantsFragment();
+        FloristPlantsFragment mFrag = new FloristPlantsFragment(id);
         t.replace(R.id.home_frame_layout, mFrag);
         t.commit();
     }

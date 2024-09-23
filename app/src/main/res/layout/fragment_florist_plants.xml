@@ -25,7 +25,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
                     android:text="Имя пользователя"
-                    android:textSize = "12sp"
+                    android:textSize="12sp"
                     app:layout_constraintStart_toEndOf="@+id/floristAvatar"
                     app:layout_constraintTop_toTopOf="@+id/floristAvatar" />
 
@@ -57,7 +57,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="15dp"
                     android:text="Количество растений"
-                    android:textSize = "12sp"
+                    android:textSize="12sp"
                     app:layout_constraintStart_toStartOf="@+id/floristName"
                     app:layout_constraintTop_toBottomOf="@+id/floristName" />
 
@@ -67,9 +67,9 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="15dp"
                     android:text="Количество"
+                    android:textColor="@color/main_green"
                     android:textSize="14sp"
-                    android:textStyle = "bold"
-                    android:textColor = "@color/main_green"
+                    android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="@+id/textView5"
                     app:layout_constraintTop_toBottomOf="@+id/textView5" />
 
