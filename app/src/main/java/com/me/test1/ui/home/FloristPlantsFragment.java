@@ -1,5 +1,6 @@
 package com.me.test1.ui.home;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -7,6 +8,7 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -29,12 +31,14 @@ public class FloristPlantsFragment extends Fragment {
     private TextView name;
     private TextView plantsQuantity;
     PlantTypeApi plantTypeApi;
+    private Button edit;
 
 
     public FloristPlantsFragment(Long id) {
         floristId = id;
     }
 
+    @SuppressLint("MissingInflatedId")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -43,6 +47,7 @@ public class FloristPlantsFragment extends Fragment {
         image = view.findViewById(R.id.floristAvatar);
         name = view.findViewById(R.id.floristName);
         plantsQuantity = view.findViewById(R.id.floristPlantsQuantity);
+        edit = view.findViewById(R.id.btnEditFloristInfo);//??
 
         plantTypeApi = ApiClient.getClient().create(PlantTypeApi.class);
         plantTypeApi.getFlorist(floristId).enqueue(new Callback<FloristDTO>() {
@@ -51,9 +56,11 @@ public class FloristPlantsFragment extends Fragment {
                 FloristDTO florist = response.body();
                 name.setText(florist.getName());
                 plantsQuantity.setText(Integer.toString(florist.getPlantsQuantity()));
-                /*Picasso.with(requireContext())
+                Picasso.with(requireContext())
                         .load(florist.getAvatar())
-                        .into(image);*/
+                        .fit()
+                        .centerCrop()
+                        .into(image);
             }
 
             @Override
@@ -61,6 +68,8 @@ public class FloristPlantsFragment extends Fragment {
                 Toast.makeText(getContext(), "Error", Toast.LENGTH_SHORT).show();
             }
         });
+
+        edit.setOnClickListener(v -> Toast.makeText(getContext(), "Edit " + name.getText() + " info", Toast.LENGTH_SHORT).show());
         return view;
     }
 }
