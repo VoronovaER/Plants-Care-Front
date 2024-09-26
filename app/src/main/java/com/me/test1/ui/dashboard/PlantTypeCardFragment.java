@@ -66,7 +66,8 @@ public class PlantTypeCardFragment extends Fragment {
                     description.setText(plantTypeDTO.getDescription());
                    Picasso.with(requireContext())
                         .load(plantTypeDTO.getUrl())
-                        .resize(300,200)
+                        .fit()
+                           .centerCrop()
                         .into(image);
             }
 
