@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.me.test1.R;
 import com.me.test1.dto.plant.PlantListRecordDTO;
+import com.me.test1.dto.planttype.PlantTypeListRecordDTO;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;

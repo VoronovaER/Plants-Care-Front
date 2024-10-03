@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import com.me.test1.MainActivity;
 import com.me.test1.R;
+import com.me.test1.dto.plant.NewPlantRequestDTO;
 import com.me.test1.dto.planttype.PlantTypeDTO;
 import com.me.test1.dto.planttype.PlantTypeListRecordDTO;
 import com.me.test1.network.ApiClient;
@@ -79,7 +80,9 @@ public class PlantTypeCardFragment extends Fragment {
         btnAdd = view.findViewById(R.id.btnAdd);
 
         btnFrag1.setOnClickListener(v -> ((MainActivity) getActivity()).replaceFragment2());
-        btnAdd.setOnClickListener(v -> Toast.makeText(getContext(), "Added " + name.getText(), Toast.LENGTH_SHORT).show());
+        btnAdd.setOnClickListener(v -> {
+            ((MainActivity) getActivity()).replaceFragmentRegistration(plantType);
+        });
         return view;
     }
 }
