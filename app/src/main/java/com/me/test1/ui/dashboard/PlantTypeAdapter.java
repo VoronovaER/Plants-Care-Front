@@ -53,13 +53,7 @@ public class PlantTypeAdapter extends RecyclerView.Adapter<PlantTypeAdapter.View
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, @SuppressLint("RecyclerView") final int position) {
         viewHolder.getTextView().setText(dataset.get(position).getName());
-        viewHolder.itemView.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v)
-            {
-                onClickListener.onClick(dataset.get(position), position);
-            }
-        });
+        viewHolder.itemView.setOnClickListener(v -> onClickListener.onClick(dataset.get(position), position));
     }
 
     @Override

@@ -1,6 +1,7 @@
 package com.me.test1.network;
 
 import com.me.test1.dto.florist.FloristDTO;
+import com.me.test1.dto.plant.PlantListRecordDTO;
 import com.me.test1.dto.planttype.PlantTypeDTO;
 import com.me.test1.dto.planttype.PlantTypeListRecordDTO;
 
@@ -20,4 +21,6 @@ public interface PlantTypeApi {
     @GET("/api/v1/florist/{floristId}")
     Call<FloristDTO> getFlorist(@Path("floristId") Long id);
 
+    @GET("/api/v1/florist/{floristId}/plant")
+    Call<List<PlantListRecordDTO>> getFloristPlants(@Path("floristId") Long id);
 }
