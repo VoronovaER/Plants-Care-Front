@@ -2,6 +2,7 @@ package com.me.test1.network;
 
 import com.me.test1.dto.florist.FloristDTO;
 import com.me.test1.dto.plant.NewPlantRequestDTO;
+import com.me.test1.dto.plant.PlantDTO;
 import com.me.test1.dto.plant.PlantListRecordDTO;
 import com.me.test1.dto.planttype.PlantTypeDTO;
 import com.me.test1.dto.planttype.PlantTypeListRecordDTO;
@@ -10,6 +11,7 @@ import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
@@ -29,4 +31,10 @@ public interface PlantTypeApi {
 
     @POST("/api/v1/plant/item")
     Call<NewPlantRequestDTO> createPlant(@Body NewPlantRequestDTO newPlantRequestDTO);
+
+    @GET("/api/v1/plant/item/{id}")
+    Call<PlantDTO> getPlant(@Path("id") Long id);
+
+    @DELETE("/api/v1/plant/item/{id}")
+    Call<Void> deletePlant(@Path("id") Long id);
 }

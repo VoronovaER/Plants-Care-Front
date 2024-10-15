@@ -12,11 +12,12 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import com.me.test1.databinding.ActivityMainBinding;
-import com.me.test1.dto.plant.NewPlantRequestDTO;
+import com.me.test1.dto.plant.PlantListRecordDTO;
 import com.me.test1.dto.planttype.PlantTypeListRecordDTO;
 import com.me.test1.ui.dashboard.PlantRegistrationFragment;
 import com.me.test1.ui.dashboard.PlantTypeCardFragment;
 import com.me.test1.ui.dashboard.PlantTypeListFragment;
+import com.me.test1.ui.home.FloristPlantInfoFragment;
 import com.me.test1.ui.home.FloristPlantsFragment;
 
 public class MainActivity extends AppCompatActivity {
@@ -64,6 +65,13 @@ public class MainActivity extends AppCompatActivity {
         FragmentTransaction t = getSupportFragmentManager().beginTransaction();
         PlantRegistrationFragment mFrag = new PlantRegistrationFragment(plantType);
         t.replace(R.id.frame_layout, mFrag);
+        t.commit();
+    }
+
+    public void replaceFragmentPlantCard(PlantListRecordDTO plant, Long id){
+        FragmentTransaction t = getSupportFragmentManager().beginTransaction();
+        FloristPlantInfoFragment mFrag = new FloristPlantInfoFragment(plant, id);
+        t.replace(R.id.home_frame_layout, mFrag);
         t.commit();
     }
 }

@@ -15,7 +15,6 @@ import android.widget.Toast;
 
 import com.me.test1.MainActivity;
 import com.me.test1.R;
-import com.me.test1.dto.plant.NewPlantRequestDTO;
 import com.me.test1.dto.planttype.PlantTypeDTO;
 import com.me.test1.dto.planttype.PlantTypeListRecordDTO;
 import com.me.test1.network.ApiClient;
@@ -29,9 +28,9 @@ import retrofit2.Response;
 
 public class PlantTypeCardFragment extends Fragment {
 
-    private Button btnFrag1;;
+    private Button btnFrag1;
     private Button btnAdd;
-    private PlantTypeListRecordDTO plantType;;
+    private PlantTypeListRecordDTO plantType;
     private TextView name;
     private TextView latinName;
     private TextView description;
@@ -67,7 +66,8 @@ public class PlantTypeCardFragment extends Fragment {
                     description.setText(plantTypeDTO.getDescription());
                    Picasso.with(requireContext())
                         .load(plantTypeDTO.getUrl())
-                        .resize(300,200)
+                        .fit()
+                           .centerCrop()
                         .into(image);
             }
 

@@ -19,7 +19,7 @@
         android:id="@+id/btn_save_reg_plant"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="650dp"
+        android:layout_marginTop="550dp"
         android:layout_marginStart="270dp"
         android:text="Сохранить" />
 
@@ -28,7 +28,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="650dp"
+        android:layout_marginTop="550dp"
         android:backgroundTint="@color/white"
         android:text="Назад"
         android:textColor="@color/main_green" />

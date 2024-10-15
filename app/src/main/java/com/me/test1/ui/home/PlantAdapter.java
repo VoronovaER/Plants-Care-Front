@@ -1,7 +1,5 @@
 package com.me.test1.ui.home;
 
-import static androidx.core.content.ContentProviderCompat.requireContext;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,14 +11,17 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.me.test1.R;
 import com.me.test1.dto.plant.PlantListRecordDTO;
-import com.me.test1.dto.planttype.PlantTypeListRecordDTO;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
 public class PlantAdapter extends RecyclerView.Adapter<PlantAdapter.ViewHolder>{
 
-    //private final PlantAdapter.OnClickListener onClickListener;
+    interface OnClickListener{
+        void onClick(PlantListRecordDTO plant, int position);
+    }
+
+    private final OnClickListener onClickListener;
     protected List<PlantListRecordDTO> dataset;
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
@@ -46,7 +47,8 @@ public class PlantAdapter extends RecyclerView.Adapter<PlantAdapter.ViewHolder>{
         }
     }
 
-    public PlantAdapter(List<PlantListRecordDTO> dataSet) {
+    public PlantAdapter(OnClickListener onClickListener, List<PlantListRecordDTO> dataSet) {
+        this.onClickListener = onClickListener;
         dataset = dataSet;
     }
 
@@ -68,6 +70,7 @@ public class PlantAdapter extends RecyclerView.Adapter<PlantAdapter.ViewHolder>{
                 .fit()
                 .centerCrop()
                 .into(holder.image);
+        holder.itemView.setOnClickListener(v -> onClickListener.onClick(dataset.get(position), position));
     }
 
     @Override

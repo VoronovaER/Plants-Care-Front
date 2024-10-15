@@ -15,14 +15,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.me.test1.MainActivity;
 import com.me.test1.R;
 import com.me.test1.dto.florist.FloristDTO;
 import com.me.test1.dto.plant.PlantListRecordDTO;
-import com.me.test1.dto.planttype.PlantTypeDTO;
-import com.me.test1.dto.planttype.PlantTypeListRecordDTO;
 import com.me.test1.network.ApiClient;
 import com.me.test1.network.PlantTypeApi;
-import com.me.test1.ui.dashboard.PlantTypeAdapter;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -97,9 +95,11 @@ public class FloristPlantsFragment extends Fragment {
         dataset = new ArrayList<>();
         RecyclerView rv = view.findViewById(R.id.floristPlantsRecycler);
 
+        PlantAdapter.OnClickListener clickListener = (plant, position) -> ((MainActivity)getActivity()).replaceFragmentPlantCard(plant, floristId);
+
         manager = new LinearLayoutManager(requireContext());
         rv.setLayoutManager(manager);
-        adapter = new PlantAdapter(dataset);
+        adapter = new PlantAdapter(clickListener, dataset);
         rv.setAdapter(adapter);
 
         plantTypeApi.getFloristPlants(floristId).enqueue(new Callback<List<PlantListRecordDTO>>() {
