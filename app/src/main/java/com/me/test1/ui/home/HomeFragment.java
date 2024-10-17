@@ -25,7 +25,7 @@ public class HomeFragment extends Fragment {
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        Long floristId = Long.valueOf(2);
+        Long floristId = Long.valueOf(1);
         ((MainActivity)getActivity()).replaceFragmentHome(floristId);
         return root;
     }

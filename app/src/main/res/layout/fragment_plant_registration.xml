@@ -31,6 +31,7 @@
         android:layout_marginTop="550dp"
         android:backgroundTint="@color/white"
         android:text="Назад"
+        style="?android:attr/borderlessButtonStyle"
         android:textColor="@color/main_green" />
 
     <com.google.android.material.textfield.TextInputLayout

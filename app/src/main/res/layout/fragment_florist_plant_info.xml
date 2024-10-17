@@ -5,8 +5,6 @@
     android:layout_height="match_parent"
     tools:context=".ui.home.FloristPlantInfoFragment">
 
-    >
-
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -26,7 +24,8 @@
                 android:backgroundTint="@color/white"
                 android:text="Назад"
                 android:textColor="@color/main_green"
-                android:textSize="10sp" />
+                android:textSize="10sp"
+                style="?android:attr/borderlessButtonStyle"/>
 
             <ImageView
                 android:id="@+id/plant_card_image"
@@ -42,6 +41,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Название"
+                android:textStyle="bold"
+                android:textColor = "@color/main_green"
                 android:textSize="24sp"
                 android:layout_marginTop="20dp"
                 android:layout_gravity="center_horizontal"/>
@@ -60,6 +61,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Вид растения"
+                android:textStyle="italic"
                 android:textSize = "18sp"
                 android:layout_marginTop="0dp"
                 android:layout_gravity="center_horizontal"
@@ -83,6 +85,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="Удалить"
+                    style="?android:attr/borderlessButtonStyle"
                     android:backgroundTint="@color/white"
                     android:textColor="@color/main_green"
                     />

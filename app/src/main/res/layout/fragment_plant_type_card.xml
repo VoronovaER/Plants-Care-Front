@@ -34,7 +34,8 @@
         android:backgroundTint="@color/white"
         android:layout_gravity="start"
         android:layout_marginTop="0dp"
-        android:text="Назад" />
+        android:text="Назад"
+        style="?android:attr/borderlessButtonStyle"/>
 
     <TextView
         android:id="@+id/PlantTypeLatinName"

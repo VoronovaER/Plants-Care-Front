@@ -90,7 +90,7 @@ public class FloristPlantsFragment extends Fragment {
             }
         });
 
-        edit.setOnClickListener(v -> Toast.makeText(getContext(), "Edit " + name.getText() + " info", Toast.LENGTH_SHORT).show());
+        edit.setOnClickListener(v -> ((MainActivity)getActivity()).replaceFragmentEditFloristInfo());
 
         dataset = new ArrayList<>();
         RecyclerView rv = view.findViewById(R.id.floristPlantsRecycler);

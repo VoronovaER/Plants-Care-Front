@@ -59,7 +59,7 @@ public class PlantRegistrationFragment extends Fragment {
                 plant.setName(Name);
                 plant.setPlace(Place);
                 plant.setPlantTypeId(plantType.getId());
-                plant.setFloristId(2L);
+                plant.setFloristId(1L);
 
                 plantTypeApi = ApiClient.getClient().create(PlantTypeApi.class);
                 plantTypeApi.createPlant(plant).enqueue(new Callback<NewPlantRequestDTO>() {
