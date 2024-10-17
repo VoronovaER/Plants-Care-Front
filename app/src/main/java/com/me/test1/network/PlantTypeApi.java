@@ -1,5 +1,6 @@
 package com.me.test1.network;
 
+import com.me.test1.dto.florist.BaseFloristDTO;
 import com.me.test1.dto.florist.FloristDTO;
 import com.me.test1.dto.plant.NewPlantRequestDTO;
 import com.me.test1.dto.plant.PlantDTO;
@@ -14,6 +15,7 @@ import retrofit2.http.Body;
 import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 import retrofit2.http.Path;
 
 public interface PlantTypeApi {
@@ -37,4 +39,7 @@ public interface PlantTypeApi {
 
     @DELETE("/api/v1/plant/item/{id}")
     Call<Void> deletePlant(@Path("id") Long id);
+
+    @PUT("/api/v1/florist/{floristId}")
+    Call<BaseFloristDTO> updateFlorist(@Path("floristId") Long id, @Body BaseFloristDTO baseFloristDTO);
 }

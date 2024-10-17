@@ -32,6 +32,7 @@
             app:layout_constraintTop_toBottomOf="@+id/textView8">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/name_edit_florist"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Имя пользователя" />
@@ -45,13 +46,14 @@
             app:layout_constraintTop_toBottomOf="@+id/textInputLayout3">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/email_edit_florist"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Электронная почта" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <Button
-            android:id="@+id/button"
+            android:id="@+id/btn_save_edit_florist"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="40dp"
@@ -61,7 +63,7 @@
             app:layout_constraintEnd_toEndOf="parent" />
 
         <Button
-            android:id="@+id/button2"
+            android:id="@+id/btn_back_edit_florist"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="40dp"

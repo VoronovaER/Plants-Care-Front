@@ -44,7 +44,7 @@ public class FloristPlantsFragment extends Fragment {
     List<PlantListRecordDTO> dataset;
     protected RecyclerView.LayoutManager manager;
     protected PlantAdapter adapter;
-    FloristDTO florist;
+    FloristDTO florist = null;
 
 
     public FloristPlantsFragment(Long id) {
@@ -90,7 +90,7 @@ public class FloristPlantsFragment extends Fragment {
             }
         });
 
-        edit.setOnClickListener(v -> ((MainActivity)getActivity()).replaceFragmentEditFloristInfo());
+        edit.setOnClickListener(v -> ((MainActivity)getActivity()).replaceFragmentEditFloristInfo(florist));
 
         dataset = new ArrayList<>();
         RecyclerView rv = view.findViewById(R.id.floristPlantsRecycler);

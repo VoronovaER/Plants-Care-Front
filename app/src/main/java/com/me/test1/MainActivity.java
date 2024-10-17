@@ -12,6 +12,7 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import com.me.test1.databinding.ActivityMainBinding;
+import com.me.test1.dto.florist.FloristDTO;
 import com.me.test1.dto.plant.PlantListRecordDTO;
 import com.me.test1.dto.planttype.PlantTypeListRecordDTO;
 import com.me.test1.ui.dashboard.PlantRegistrationFragment;
@@ -76,9 +77,9 @@ public class MainActivity extends AppCompatActivity {
         t.commit();
     }
 
-    public void replaceFragmentEditFloristInfo() {
+    public void replaceFragmentEditFloristInfo(FloristDTO florist) {
         FragmentTransaction t = getSupportFragmentManager().beginTransaction();
-        EditFloristInfoFragment mFrag = new EditFloristInfoFragment();
+        EditFloristInfoFragment mFrag = new EditFloristInfoFragment(florist);
         t.replace(R.id.home_frame_layout, mFrag);
         t.commit();
     }
