@@ -7,6 +7,7 @@ import com.me.test1.dto.plant.PlantDTO;
 import com.me.test1.dto.plant.PlantListRecordDTO;
 import com.me.test1.dto.planttype.PlantTypeDTO;
 import com.me.test1.dto.planttype.PlantTypeListRecordDTO;
+import com.me.test1.dto.task.TaskListRecordDTO;
 
 import java.util.List;
 
@@ -42,4 +43,7 @@ public interface PlantTypeApi {
 
     @PUT("/api/v1/florist/{floristId}")
     Call<BaseFloristDTO> updateFlorist(@Path("floristId") Long id, @Body BaseFloristDTO baseFloristDTO);
+
+    @GET("api/v1/plant/item/{id}/tasks")
+    Call<List<TaskListRecordDTO>> getPlantTasks(@Path("id") Long id);
 }

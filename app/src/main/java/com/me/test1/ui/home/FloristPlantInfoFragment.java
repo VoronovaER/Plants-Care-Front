@@ -4,6 +4,8 @@ import android.annotation.SuppressLint;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,10 +19,15 @@ import com.me.test1.MainActivity;
 import com.me.test1.R;
 import com.me.test1.dto.plant.PlantDTO;
 import com.me.test1.dto.plant.PlantListRecordDTO;
+import com.me.test1.dto.planttype.PlantTypeListRecordDTO;
+import com.me.test1.dto.task.TaskListRecordDTO;
 import com.me.test1.network.ApiClient;
 import com.me.test1.network.PlantTypeApi;
+import com.me.test1.ui.dashboard.PlantTypeAdapter;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 import retrofit2.Call;
@@ -39,6 +46,9 @@ public class FloristPlantInfoFragment extends Fragment {
     private TextView type;
     private Button btnEdit;
     private Button btnDelete;
+    protected RecyclerView.LayoutManager manager;
+    protected PlantTasksAdapter adapter;
+    List<TaskListRecordDTO> dataset;
 
 
     public FloristPlantInfoFragment(PlantListRecordDTO plant, Long floristId) {
@@ -98,7 +108,6 @@ public class FloristPlantInfoFragment extends Fragment {
         btnDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //((MainActivity)getActivity()).replaceFragmentHome(floristId);
                 plantTypeApi.deletePlant(plant.getId()).enqueue(new Callback<Void>() {
                     @Override
                     public void onResponse(Call<Void> call, Response<Void> response) {
@@ -110,10 +119,31 @@ public class FloristPlantInfoFragment extends Fragment {
                         Toast.makeText(getContext(), "Error", Toast.LENGTH_SHORT).show();
                     }
                 });
-                //((MainActivity)getActivity()).replaceFragmentHome(floristId);
             }
         });
+        dataset = new ArrayList<>();
+        RecyclerView rv = v.findViewById(R.id.plant_tasks_recycler);
 
+        PlantTasksAdapter.OnClickListener clickListener = (task, position) -> Toast.makeText(getContext(), task.getName(), Toast.LENGTH_SHORT).show();
+
+        manager = new LinearLayoutManager(requireContext());
+        rv.setLayoutManager(manager);
+        adapter = new PlantTasksAdapter(clickListener, dataset);
+        rv.setAdapter(adapter);
+
+        plantTypeApi.getPlantTasks(plant.getId()).enqueue(new Callback<List<TaskListRecordDTO>>() {
+
+            @Override
+            public void onResponse(Call<List<TaskListRecordDTO>> call, Response<List<TaskListRecordDTO>> response) {
+                dataset.addAll(response.body());
+                rv.getAdapter().notifyDataSetChanged();
+            }
+
+            @Override
+            public void onFailure(Call<List<TaskListRecordDTO>> call, Throwable throwable) {
+                Toast.makeText(requireContext(), "An error occurred during networking", Toast.LENGTH_SHORT).show();
+            }
+        });
 
         btnBack.setOnClickListener(v1 -> ((MainActivity)getActivity()).replaceFragmentHome(floristId));
         return v;
