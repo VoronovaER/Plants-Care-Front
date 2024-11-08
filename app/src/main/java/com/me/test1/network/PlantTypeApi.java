@@ -1,7 +1,9 @@
 package com.me.test1.network;
 
+
 import com.me.test1.dto.florist.BaseFloristDTO;
 import com.me.test1.dto.florist.FloristDTO;
+import com.me.test1.dto.florist.FloristTaskDTO;
 import com.me.test1.dto.plant.NewPlantRequestDTO;
 import com.me.test1.dto.plant.PlantDTO;
 import com.me.test1.dto.plant.PlantListRecordDTO;
@@ -9,7 +11,9 @@ import com.me.test1.dto.planttype.PlantTypeDTO;
 import com.me.test1.dto.planttype.PlantTypeListRecordDTO;
 import com.me.test1.dto.task.TaskListRecordDTO;
 
+import java.time.LocalDate;
 import java.util.List;
+import java.util.Locale;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -46,4 +50,7 @@ public interface PlantTypeApi {
 
     @GET("api/v1/plant/item/{id}/tasks")
     Call<List<TaskListRecordDTO>> getPlantTasks(@Path("id") Long id);
+
+    @GET("api/v1/florist/{floristId}/task/{date}")
+    Call<List<FloristTaskDTO>> getTaskList(@Path("floristId") Long id, @Path("date") LocalDate date);
 }

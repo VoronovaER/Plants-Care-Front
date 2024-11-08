@@ -8,7 +8,7 @@ android {
 
     defaultConfig {
         applicationId = "com.me.test1"
-        minSdk = 24
+        minSdk = 28
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
@@ -50,4 +50,5 @@ dependencies {
     implementation(libs.retrofit)
     implementation(libs.converter.gson)
     implementation(libs.picasso)
+    implementation(libs.gson)
 }

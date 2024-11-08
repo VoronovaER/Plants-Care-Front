@@ -21,6 +21,7 @@ import com.me.test1.ui.dashboard.PlantTypeListFragment;
 import com.me.test1.ui.home.EditFloristInfoFragment;
 import com.me.test1.ui.home.FloristPlantInfoFragment;
 import com.me.test1.ui.home.FloristPlantsFragment;
+import com.me.test1.ui.notifications.DateNotificationFragment;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -81,6 +82,12 @@ public class MainActivity extends AppCompatActivity {
         FragmentTransaction t = getSupportFragmentManager().beginTransaction();
         EditFloristInfoFragment mFrag = new EditFloristInfoFragment(florist);
         t.replace(R.id.home_frame_layout, mFrag);
+        t.commit();
+    }
+
+    public void replaceDateNotificationsFragment(Long floristId) {
+        FragmentTransaction t = getSupportFragmentManager().beginTransaction();
+        t.replace(R.id.notification_frame_layout, new DateNotificationFragment(floristId));
         t.commit();
     }
 }
