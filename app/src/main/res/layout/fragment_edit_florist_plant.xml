@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.home.EditFloristInfoFragment">
+    tools:context=".ui.home.EditFloristPlantFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -14,7 +14,7 @@
             android:id="@+id/textView8"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Редактировать профиль"
+            android:text="Редактировать растение"
             android:textColor="@color/main_green"
             android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -31,14 +31,14 @@
             app:layout_constraintTop_toBottomOf="@+id/textView8">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/name_edit_florist"
+                android:id="@+id/name_edit_plant"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Имя пользователя" />
+                android:hint="Название растения" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/textInputLayout5"
+            android:id="@+id/textInputLayout4"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="40dp"
@@ -46,22 +46,22 @@
             app:layout_constraintTop_toBottomOf="@+id/textInputLayout3">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/email_edit_florist"
+                android:id="@+id/place_edit_plant"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Электронная почта" />
+                android:hint="Место" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <Button
-            android:id="@+id/btn_save_edit_florist"
+            android:id="@+id/btn_save_edit_plant"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Сохранить"
-            app:layout_constraintEnd_toEndOf="@+id/textInputLayout5"
-            app:layout_constraintTop_toTopOf="@+id/btn_back_edit_florist" />
+            app:layout_constraintEnd_toEndOf="@+id/textInputLayout4"
+            app:layout_constraintTop_toTopOf="@+id/btn_back_edit_plant" />
 
         <Button
-            android:id="@+id/btn_back_edit_florist"
+            android:id="@+id/btn_back_edit_plant"
             style="?android:attr/borderlessButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -69,8 +69,9 @@
             android:backgroundTint="@color/white"
             android:text="Назад"
             android:textColor="@color/main_green"
-            app:layout_constraintStart_toStartOf="@+id/textInputLayout5"
-            app:layout_constraintTop_toBottomOf="@+id/textInputLayout5" />
+            app:layout_constraintStart_toStartOf="@+id/textInputLayout4"
+            app:layout_constraintTop_toBottomOf="@+id/textInputLayout4" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 </FrameLayout>

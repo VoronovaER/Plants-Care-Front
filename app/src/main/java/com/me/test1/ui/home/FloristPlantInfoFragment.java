@@ -49,6 +49,7 @@ public class FloristPlantInfoFragment extends Fragment {
     protected RecyclerView.LayoutManager manager;
     protected PlantTasksAdapter adapter;
     List<TaskListRecordDTO> dataset;
+    private PlantDTO plantDTO;
 
 
     public FloristPlantInfoFragment(PlantListRecordDTO plant, Long floristId) {
@@ -77,7 +78,7 @@ public class FloristPlantInfoFragment extends Fragment {
             @Override
             public void onResponse(Call<PlantDTO> call, Response<PlantDTO> response) {
                 if(response.isSuccessful()) {
-                    PlantDTO plantDTO = response.body();
+                    plantDTO = response.body();
                     name.setText(plantDTO.getName());
                     place.setText(plantDTO.getPlace());
                     type.setText(plantDTO.getPlantType().getName());
@@ -104,7 +105,7 @@ public class FloristPlantInfoFragment extends Fragment {
             }
         });
 
-        btnEdit.setOnClickListener(v1 -> Toast.makeText(getContext(), "Редактирование данных", Toast.LENGTH_SHORT).show());
+        btnEdit.setOnClickListener(v1 ->((MainActivity)getActivity()).replaceEditFloristPlantFragment(plantDTO));
         btnDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

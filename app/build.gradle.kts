@@ -1,5 +1,6 @@
 plugins {
     alias(libs.plugins.androidApplication)
+    alias(libs.plugins.google.services)
 }
 
 android {
@@ -51,4 +52,10 @@ dependencies {
     implementation(libs.converter.gson)
     implementation(libs.picasso)
     implementation(libs.gson)
+    implementation(libs.cardview)
+    implementation(libs.logging.interceptor)
+    implementation(libs.okhttp)
+    implementation("com.google.firebase:firebase-analytics")
+    implementation(platform("com.google.firebase:firebase-bom:33.5.1"))
+    implementation("com.google.firebase:firebase-auth:23.1.0")
 }

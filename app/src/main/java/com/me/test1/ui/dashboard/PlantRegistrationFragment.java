@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
+import com.me.test1.Info;
 import com.me.test1.MainActivity;
 import com.me.test1.R;
 import com.me.test1.dto.plant.NewPlantRequestDTO;
@@ -59,7 +60,7 @@ public class PlantRegistrationFragment extends Fragment {
                 plant.setName(Name);
                 plant.setPlace(Place);
                 plant.setPlantTypeId(plantType.getId());
-                plant.setFloristId(2L);
+                plant.setFloristId(Info.getId());
 
                 plantTypeApi = ApiClient.getClient().create(PlantTypeApi.class);
                 plantTypeApi.createPlant(plant).enqueue(new Callback<NewPlantRequestDTO>() {

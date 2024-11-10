@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.me.test1.Info;
 import com.me.test1.MainActivity;
 import com.me.test1.R;
 import com.me.test1.databinding.FragmentNotificationsBinding;
@@ -24,12 +25,9 @@ public class NotificationsFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        NotificationsViewModel notificationsViewModel =
-                new ViewModelProvider(this).get(NotificationsViewModel.class);
-
         binding = FragmentNotificationsBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
-        Long floristId = 2L;
+        Long floristId = Info.getId();
         ((MainActivity)getActivity()).replaceDateNotificationsFragment(floristId);
         return root;
     }
