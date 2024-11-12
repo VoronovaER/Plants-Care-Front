@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.me.test1.MainActivity;
+import com.me.test1.R;
 import com.me.test1.databinding.FragmentDashboardBinding;
 
 public class DashboardFragment extends Fragment {
@@ -20,8 +21,7 @@ public class DashboardFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        binding = FragmentDashboardBinding.inflate(inflater, container, false);
-        View root = binding.getRoot();
+        View root = inflater.inflate(R.layout.fragment_dashboard, container, false);
 
         ((MainActivity)getActivity()).replaceFragment2();
 

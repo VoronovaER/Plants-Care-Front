@@ -2,6 +2,8 @@ package com.me.test1.ui.home;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -13,6 +15,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.me.test1.Info;
 import com.me.test1.MainActivity;
+import com.me.test1.R;
 import com.me.test1.databinding.FragmentHomeBinding;
 import com.me.test1.dto.florist.FloristDTO;
 import com.me.test1.network.ApiClient;
@@ -29,8 +32,7 @@ public class HomeFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        binding = FragmentHomeBinding.inflate(inflater, container, false);
-        View root = binding.getRoot();
+        View root = inflater.inflate(R.layout.fragment_home, container, false);
         plantTypeApi = ApiClient.getClient().create(PlantTypeApi.class);
         plantTypeApi.getFloristByEmail(Info.getEmail()).enqueue(new Callback<FloristDTO>() {
             @Override
@@ -49,6 +51,7 @@ public class HomeFragment extends Fragment {
         });
         return root;
     }
+
 
     @Override
     public void onDestroyView() {

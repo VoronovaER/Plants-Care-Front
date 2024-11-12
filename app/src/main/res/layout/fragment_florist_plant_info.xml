@@ -22,6 +22,7 @@
                 android:background="@drawable/back_svgrepo_com"
                 android:layout_gravity="start"
                 android:layout_marginTop="0dp"
+                android:layout_margin="20dp"
                 android:backgroundTint="@color/white"
                 android:textColor="@color/main_green"
                 android:textSize="10sp"
@@ -32,7 +33,7 @@
                 android:layout_width="300dp"
                 android:layout_height="200dp"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="10dp"
                 tools:src="@tools:sample/avatars" />
 
 

@@ -25,8 +25,7 @@ public class NotificationsFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        binding = FragmentNotificationsBinding.inflate(inflater, container, false);
-        View root = binding.getRoot();
+        View root = inflater.inflate(R.layout.fragment_notifications, container, false);
         Long floristId = Info.getId();
         ((MainActivity)getActivity()).replaceDateNotificationsFragment(floristId);
         return root;

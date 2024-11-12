@@ -49,6 +49,7 @@ public class Authorization extends AppCompatActivity {
         login = findViewById(R.id.loginAuth);
         text = findViewById(R.id.register1Auth);
         btnText = findViewById(R.id.register2Auth);
+        name.setVisibility(View.GONE);
         login.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -122,11 +123,13 @@ public class Authorization extends AppCompatActivity {
             login.setText("Зарегистрироваться");
             text.setText("Уже есть аккаунт?");
             btnText.setText("Войти");
+            name.setVisibility(View.VISIBLE);
         }else{
             isLoggedIn = true;
             login.setText("Войти");
             text.setText("Ещё нет аккаунта?");
             btnText.setText("Зарегистрироваться");
+            name.setVisibility(View.GONE);
         }
 
     }

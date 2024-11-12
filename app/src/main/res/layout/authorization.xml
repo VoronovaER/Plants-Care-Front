@@ -8,16 +8,54 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".Authorization">
 
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:src="@drawable/auth_background"/>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="20dp"
         android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="@+id/loginAuth"
+            app:layout_constraintStart_toStartOf="@+id/loginAuth"
+            app:layout_constraintTop_toBottomOf="@+id/loginAuth">
+
+            <TextView
+                android:id="@+id/register1Auth"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:focusable="true"
+                android:layout_gravity="start"
+                android:fontFamily="sans-serif"
+                android:text="Ещё нет аккаунта?"
+                android:textSize="14dp" />
+
+            <TextView
+                android:id="@+id/register2Auth"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:focusable="true"
+                android:fontFamily="sans-serif"
+                android:onClick="Registration"
+                android:text="Зарегистрироваться"
+                android:textColor="@color/main_green"
+                android:textSize="14dp" />
+        </LinearLayout>
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/textInputLayout8"
             android:layout_width="300dp"
-            android:layout_marginTop="100dp"
+            android:layout_marginTop="60dp"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -87,32 +125,5 @@
             app:layout_constraintStart_toStartOf="@+id/textInputLayout7"
             app:layout_constraintTop_toBottomOf="@+id/textInputLayout7" />
 
-        <TextView
-            android:id="@+id/register1Auth"
-            android:layout_width="wrap_content"
-            android:layout_height="23dp"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginStart="50dp"
-            android:focusable="true"
-            android:fontFamily="sans-serif"
-            android:text="Ещё нет аккаунта?"
-            android:textSize="12dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/loginAuth" />
-
-        <TextView
-            android:id="@+id/register2Auth"
-            android:layout_width="wrap_content"
-            android:layout_height="23dp"
-            android:layout_toEndOf="@+id/register1Auth"
-            android:clickable="true"
-            android:focusable="true"
-            android:fontFamily="sans-serif"
-            android:onClick="Registration"
-            android:text="Зарегистрироваться"
-            android:textColor="#00d9d9"
-            android:textSize="12dp"
-            app:layout_constraintStart_toEndOf="@+id/register1Auth"
-            app:layout_constraintTop_toBottomOf="@+id/loginAuth" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>

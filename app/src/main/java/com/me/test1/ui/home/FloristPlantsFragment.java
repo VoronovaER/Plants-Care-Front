@@ -1,6 +1,7 @@
 package com.me.test1.ui.home;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -8,13 +9,17 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.me.test1.Authorization;
 import com.me.test1.Info;
 import com.me.test1.MainActivity;
 import com.me.test1.R;
@@ -35,8 +40,7 @@ import retrofit2.Response;
 public class FloristPlantsFragment extends Fragment {
 
     private ImageView image;
-    private TextView name;
-    private TextView plantsQuantity;
+    private TextView name, plantsQuantity;
     private Button edit;
 
     PlantTypeApi plantTypeApi;
@@ -55,7 +59,7 @@ public class FloristPlantsFragment extends Fragment {
         name = view.findViewById(R.id.floristName);
         plantsQuantity = view.findViewById(R.id.floristPlantsQuantity);
         edit = view.findViewById(R.id.btnEditFloristInfo);
-
+        ImageView menu = view.findViewById(R.id.btn_menu);
 
         name.setText(Info.getName());
         if (Objects.equals(Info.getAvatar(), null)){
@@ -99,6 +103,36 @@ public class FloristPlantsFragment extends Fragment {
                 Toast.makeText(requireContext(), "An error occurred during networking", Toast.LENGTH_SHORT).show();
             }
         });
+        menu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showMenu(v);
+            }
+        });
         return view;
     }
+
+    private void showMenu(View v){
+        PopupMenu popupMenu = new PopupMenu(requireContext(), v);
+        popupMenu.getMenuInflater().inflate(R.menu.toolbar_menu, popupMenu.getMenu());
+        popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                if (item.getItemId() == R.id.settings){
+                    Toast.makeText(requireContext(), "Settings", Toast.LENGTH_SHORT).show();
+                }else if(item.getItemId() == R.id.logout){
+                    Info.setId(null);
+                    Info.setName(null);
+                    Info.setAvatar(null);
+                    Info.setEmail(null);
+                    FirebaseAuth mAuth = FirebaseAuth.getInstance();
+                    mAuth.signOut();
+                    startActivity(new Intent(requireContext(), Authorization.class));
+                }
+                return true;
+            }
+        });
+        popupMenu.show();
+    }
 }
+
