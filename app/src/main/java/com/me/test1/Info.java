@@ -1,16 +1,17 @@
 package com.me.test1;
 
 public class Info {
-    private static String password = null;
+    private static String name = null;
     private static String email = null;
     private static Long id = null;
+    private static String avatar = null;
 
-    public static String getPassword() {
-        return password;
+    public static String getName() {
+        return name;
     }
 
-    public static void setPassword(String password) {
-        Info.password = password;
+    public static void setName(String name) {
+        Info.name = name;
     }
     public static String getEmail() {
         return email;
@@ -24,5 +25,13 @@ public class Info {
     }
     public static void setId(Long id) {
         Info.id = id;
+    }
+
+    public static String getAvatar() {
+        return avatar;
+    }
+
+    public static void setAvatar(String avatar) {
+        Info.avatar = avatar;
     }
 }

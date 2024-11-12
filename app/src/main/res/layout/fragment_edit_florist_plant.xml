@@ -26,6 +26,7 @@
             android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="40dp"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView8">
@@ -34,6 +35,8 @@
                 android:id="@+id/name_edit_plant"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:maxLength="20"
+                android:inputType="text"
                 android:hint="Название растения" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -42,6 +45,7 @@
             android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="40dp"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             app:layout_constraintStart_toStartOf="@+id/textInputLayout3"
             app:layout_constraintTop_toBottomOf="@+id/textInputLayout3">
 
@@ -49,6 +53,8 @@
                 android:id="@+id/place_edit_plant"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:maxLength="20"
+                android:inputType="text"
                 android:hint="Место" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -56,21 +62,22 @@
             android:id="@+id/btn_save_edit_plant"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
             android:text="Сохранить"
             app:layout_constraintEnd_toEndOf="@+id/textInputLayout4"
-            app:layout_constraintTop_toTopOf="@+id/btn_back_edit_plant" />
+            app:layout_constraintStart_toStartOf="@+id/textInputLayout4"
+            app:layout_constraintTop_toBottomOf="@+id/textInputLayout4" />
 
         <Button
             android:id="@+id/btn_back_edit_plant"
             style="?android:attr/borderlessButtonStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="40dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:background="@drawable/back_svgrepo_com"
             android:backgroundTint="@color/white"
-            android:text="Назад"
             android:textColor="@color/main_green"
-            app:layout_constraintStart_toStartOf="@+id/textInputLayout4"
-            app:layout_constraintTop_toBottomOf="@+id/textInputLayout4" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

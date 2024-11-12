@@ -1,6 +1,7 @@
 package com.me.test1.network;
 
 
+import com.google.android.gms.common.internal.safeparcel.SafeParcelable;
 import com.me.test1.dto.florist.BaseFloristDTO;
 import com.me.test1.dto.florist.FloristDTO;
 import com.me.test1.dto.florist.FloristTaskDTO;
@@ -19,9 +20,12 @@ import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
 import retrofit2.http.GET;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
+import retrofit2.http.Part;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 public interface PlantTypeApi {
     @GET("/api/v1/plant/types")
@@ -62,4 +66,7 @@ public interface PlantTypeApi {
 
     @GET("api/v1/florist/email/{email}")
     Call<FloristDTO> getFloristByEmail(@Path("email") String id);
+
+    @PUT("api/v1/florist/{email}/firebase/{firebaseToken}")
+    Call<Void> updateFloristFirebaseToken(@Path("firebaseToken") String firebaseToken, @Path("email") String email);
 }

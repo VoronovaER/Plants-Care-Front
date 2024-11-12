@@ -27,14 +27,13 @@
 
     <Button
         android:id="@+id/btnFrag1"
-        android:layout_width="75dp"
-        android:layout_height="33dp"
-        android:textSize = "10sp"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:background="@drawable/back_svgrepo_com"
         android:textColor="@color/main_green"
         android:backgroundTint="@color/white"
         android:layout_gravity="start"
         android:layout_marginTop="0dp"
-        android:text="Назад"
         style="?android:attr/borderlessButtonStyle"/>
 
     <TextView

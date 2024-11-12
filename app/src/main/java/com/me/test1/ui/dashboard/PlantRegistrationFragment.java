@@ -2,6 +2,7 @@ package com.me.test1.ui.dashboard;
 
 import android.os.Bundle;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -77,12 +78,15 @@ public class PlantRegistrationFragment extends Fragment {
             }
         });
 
-        back.setOnClickListener(new View.OnClickListener() {
+        OnBackPressedCallback callback = new OnBackPressedCallback(true) {
             @Override
-            public void onClick(View v) {
+            public void handleOnBackPressed() {
                 ((MainActivity)getActivity()).replaceFragment1(plantType);
             }
-        });
+        };
+        requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), callback);
+
+        back.setOnClickListener(v1 -> ((MainActivity)getActivity()).replaceFragment1(plantType));
         return v;
     }
 }

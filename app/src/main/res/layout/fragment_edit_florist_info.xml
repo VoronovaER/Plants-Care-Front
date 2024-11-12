@@ -28,12 +28,16 @@
             android:layout_marginTop="40dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             app:layout_constraintTop_toBottomOf="@+id/textView8">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/name_edit_florist"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:maxLength="20"
+                android:inputType="textPersonName"
+                app:endIconMode="clear_text"
                 android:hint="Имя пользователя" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -43,12 +47,16 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="40dp"
             app:layout_constraintStart_toStartOf="@+id/textInputLayout3"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             app:layout_constraintTop_toBottomOf="@+id/textInputLayout3">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/email_edit_florist"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:maxLength="20"
+                app:endIconMode="clear_text"
+                android:inputType="textEmailAddress"
                 android:hint="Электронная почта" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -56,21 +64,22 @@
             android:id="@+id/btn_save_edit_florist"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
             android:text="Сохранить"
             app:layout_constraintEnd_toEndOf="@+id/textInputLayout5"
-            app:layout_constraintTop_toTopOf="@+id/btn_back_edit_florist" />
+            app:layout_constraintStart_toStartOf="@+id/textInputLayout5"
+            app:layout_constraintTop_toBottomOf="@+id/textInputLayout5" />
 
         <Button
             android:id="@+id/btn_back_edit_florist"
             style="?android:attr/borderlessButtonStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="40dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:background="@drawable/back_svgrepo_com"
             android:backgroundTint="@color/white"
-            android:text="Назад"
             android:textColor="@color/main_green"
-            app:layout_constraintStart_toStartOf="@+id/textInputLayout5"
-            app:layout_constraintTop_toBottomOf="@+id/textInputLayout5" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

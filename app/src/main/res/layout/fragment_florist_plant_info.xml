@@ -17,12 +17,12 @@
 
             <Button
                 android:id="@+id/btn_plant_card_back"
-                android:layout_width="75dp"
-                android:layout_height="33dp"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:background="@drawable/back_svgrepo_com"
                 android:layout_gravity="start"
                 android:layout_marginTop="0dp"
                 android:backgroundTint="@color/white"
-                android:text="Назад"
                 android:textColor="@color/main_green"
                 android:textSize="10sp"
                 style="?android:attr/borderlessButtonStyle"/>

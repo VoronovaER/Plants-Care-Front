@@ -1,8 +1,12 @@
 package com.me.test1.ui.home;
 
 import android.annotation.SuppressLint;
+import android.content.DialogInterface;
 import android.os.Bundle;
 
+import androidx.activity.OnBackPressedCallback;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -72,6 +76,14 @@ public class FloristPlantInfoFragment extends Fragment {
         btnEdit = v.findViewById(R.id.btn_edit_plant_card);
         btnDelete = v.findViewById(R.id.btn_del_plant_card);
 
+        OnBackPressedCallback callback = new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                ((MainActivity)getActivity()).replaceFragmentHome();
+            }
+        };
+        requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), callback);
+
         plantTypeApi = ApiClient.getClient().create(PlantTypeApi.class);
 
         plantTypeApi.getPlant(plant.getId()).enqueue(new Callback<PlantDTO>() {
@@ -109,17 +121,28 @@ public class FloristPlantInfoFragment extends Fragment {
         btnDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                plantTypeApi.deletePlant(plant.getId()).enqueue(new Callback<Void>() {
-                    @Override
-                    public void onResponse(Call<Void> call, Response<Void> response) {
-                        Toast.makeText(getContext(), "Удалено", Toast.LENGTH_SHORT).show();
-                    }
+                AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
+                builder.setMessage("Вы хотите удалить растение?");
+                builder.setTitle("Внимание!");
+                builder.setCancelable(true);
+                builder.setPositiveButton("Да", (dialog, which) -> {
+                    plantTypeApi.deletePlant(plant.getId()).enqueue(new Callback<Void>() {
+                        @Override
+                        public void onResponse(Call<Void> call, Response<Void> response) {
+                            Toast.makeText(getContext(), "Удалено", Toast.LENGTH_SHORT).show();
+                        }
 
-                    @Override
-                    public void onFailure(Call<Void> call, Throwable throwable) {
-                        Toast.makeText(getContext(), "Error", Toast.LENGTH_SHORT).show();
-                    }
+                        @Override
+                        public void onFailure(Call<Void> call, Throwable throwable) {
+                            Toast.makeText(getContext(), "Error", Toast.LENGTH_SHORT).show();
+                        }
+                    });
                 });
+                builder.setNegativeButton("Нет", (DialogInterface.OnClickListener) (dialog, which) -> {
+                    dialog.cancel();
+                });
+                AlertDialog alertDialog = builder.create();
+                alertDialog.show();
             }
         });
         dataset = new ArrayList<>();
@@ -146,7 +169,7 @@ public class FloristPlantInfoFragment extends Fragment {
             }
         });
 
-        btnBack.setOnClickListener(v1 -> ((MainActivity)getActivity()).replaceFragmentHome(floristId));
+        btnBack.setOnClickListener(v1 -> ((MainActivity)getActivity()).replaceFragmentHome());
         return v;
     }
 }

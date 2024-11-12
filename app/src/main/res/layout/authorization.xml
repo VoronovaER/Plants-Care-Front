@@ -8,59 +8,111 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".Authorization">
 
-    <RelativeLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_margin="20dp"
         android:orientation="vertical">
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:layout_width="match_parent"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textInputLayout8"
+            android:layout_width="300dp"
+            android:layout_marginTop="100dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="80dp"
-            android:hint="Электронная почта"
-            android:id = "@+id/emailAuth"
-            android:inputType="textEmailAddress"
-            android:textSize="20sp" />
-        <com.google.android.material.textfield.TextInputEditText
-            android:layout_width="match_parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/nameAuth"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Имя пользователя"
+                android:inputType="textPersonName" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textInputLayout6"
+            android:layout_width="300dp"
+            android:layout_marginTop="40dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="160dp"
-            android:hint="Пароль"
-            android:id = "@+id/passwordAuth"
-            android:inputType="textPassword"
-            android:textSize="20sp" />
+            app:layout_constraintTop_toBottomOf="@id/textInputLayout8"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/emailAuth"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:errorEnabled="true"
+                android:hint="Электронная почта"
+                android:inputType="textEmailAddress" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textInputLayout7"
+            android:layout_marginTop="40dp"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textInputLayout6"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            app:endIconMode="password_toggle">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/passwordAuth"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:errorEnabled="true"
+                android:hint="Пароль"
+                android:inputType="textPassword" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
 
         <Button
             android:id="@+id/loginAuth"
-            android:layout_width="wrap_content"
+            android:layout_margin="40dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="240dp"
+            android:layout_marginTop="40dp"
+            android:gravity="center_horizontal"
             android:text="Войти"
-            android:gravity="center_horizontal"/>
+            app:layout_constraintEnd_toEndOf="@+id/textInputLayout7"
+            app:layout_constraintStart_toStartOf="@+id/textInputLayout7"
+            app:layout_constraintTop_toBottomOf="@+id/textInputLayout7" />
+
         <TextView
             android:id="@+id/register1Auth"
             android:layout_width="wrap_content"
             android:layout_height="23dp"
-            android:layout_marginTop="300dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginStart="50dp"
+            android:focusable="true"
             android:fontFamily="sans-serif"
             android:text="Ещё нет аккаунта?"
-            android:layout_gravity="center_horizontal"
             android:textSize="12dp"
-            android:focusable="true" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/loginAuth" />
 
         <TextView
             android:id="@+id/register2Auth"
             android:layout_width="wrap_content"
             android:layout_height="23dp"
-            android:layout_marginTop="300dp"
-            android:fontFamily="sans-serif"
-            android:clickable="true"
-            android:text="Зарегистрироваться"
-            android:onClick="Registration"
             android:layout_toEndOf="@+id/register1Auth"
+            android:clickable="true"
+            android:focusable="true"
+            android:fontFamily="sans-serif"
+            android:onClick="Registration"
+            android:text="Зарегистрироваться"
             android:textColor="#00d9d9"
             android:textSize="12dp"
-            android:focusable="true" />
-    </RelativeLayout>
+            app:layout_constraintStart_toEndOf="@+id/register1Auth"
+            app:layout_constraintTop_toBottomOf="@+id/loginAuth" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>

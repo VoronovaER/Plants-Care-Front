@@ -3,6 +3,7 @@ package com.me.test1.ui.home;
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -12,6 +13,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputEditText;
+import com.me.test1.Info;
 import com.me.test1.MainActivity;
 import com.me.test1.R;
 import com.me.test1.dto.florist.BaseFloristDTO;
@@ -24,7 +26,6 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class EditFloristInfoFragment extends Fragment {
-    private FloristDTO florist;
 
     private TextInputEditText name;
     private TextInputEditText email;
@@ -32,10 +33,6 @@ public class EditFloristInfoFragment extends Fragment {
     private Button back;
     PlantTypeApi plantTypeApi;
 
-
-    public EditFloristInfoFragment(FloristDTO florist) {
-        this.florist = florist;
-    }
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -47,21 +44,35 @@ public class EditFloristInfoFragment extends Fragment {
         save = v.findViewById(R.id.btn_save_edit_florist);
         back = v.findViewById(R.id.btn_back_edit_florist);
 
-        name.setText(florist.getName());
-        email.setText(florist.getEmail());
+        OnBackPressedCallback callback = new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                ((MainActivity)getActivity()).replaceFragmentHome();
+            }
+        };
+        requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), callback);
 
-        back.setOnClickListener(v1 -> ((MainActivity)getActivity()).replaceFragmentHome(florist.getId()));
+        name.setText(Info.getName());
+        email.setText(Info.getEmail());
+
+        back.setOnClickListener(v1 -> ((MainActivity)getActivity()).replaceFragmentHome());
         plantTypeApi = ApiClient.getClient().create(PlantTypeApi.class);
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                BaseFloristDTO florist = new FloristDTO();
                 florist.setName(name.getText().toString());
                 florist.setEmail(email.getText().toString());
-                plantTypeApi.updateFlorist(florist.getId(), florist).enqueue(new Callback<BaseFloristDTO>() {
+                plantTypeApi.updateFlorist(Info.getId(), florist).enqueue(new Callback<BaseFloristDTO>() {
 
                     @Override
                     public void onResponse(Call<BaseFloristDTO> call, Response<BaseFloristDTO> response) {
-                        Toast.makeText(getContext(), "Данные успешно сохранены", Toast.LENGTH_SHORT).show();
+                        if(response.isSuccessful()){
+                            Toast.makeText(getContext(), "Данные успешно сохранены", Toast.LENGTH_SHORT).show();
+                            Info.setName(response.body().getName());
+                        }else{
+                            Toast.makeText(getContext(), "Ошибка сохранения данных", Toast.LENGTH_SHORT).show();
+                        }
                     }
 
                     @Override

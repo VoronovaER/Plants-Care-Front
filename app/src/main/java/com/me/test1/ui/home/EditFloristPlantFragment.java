@@ -2,6 +2,7 @@ package com.me.test1.ui.home;
 
 import android.os.Bundle;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -11,6 +12,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputEditText;
+import com.me.test1.Info;
 import com.me.test1.MainActivity;
 import com.me.test1.R;
 import com.me.test1.dto.florist.BaseFloristDTO;
@@ -48,7 +50,7 @@ public class EditFloristPlantFragment extends Fragment {
         name.setText(plant.getName());
         place.setText(plant.getPlace());
 
-        back.setOnClickListener(v1 -> ((MainActivity)getActivity()).replaceFragmentPlantCard(plant.getPlantListRecordDTO(), plant.getFlorists().get(0).getId()));
+        back.setOnClickListener(v1 -> ((MainActivity)getActivity()).replaceFragmentPlantCard(plant.getPlantListRecordDTO(), Info.getId()));
         plantTypeApi = ApiClient.getClient().create(PlantTypeApi.class);
 
         save.setOnClickListener(new View.OnClickListener() {
@@ -70,6 +72,13 @@ public class EditFloristPlantFragment extends Fragment {
                 });
             }
         });
+        OnBackPressedCallback callback = new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                ((MainActivity)getActivity()).replaceFragmentPlantCard(plant.getPlantListRecordDTO(), Info.getId());
+            }
+        };
+        requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), callback);
         return v;
     }
 }

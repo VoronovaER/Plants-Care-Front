@@ -15,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.me.test1.Info;
 import com.me.test1.MainActivity;
 import com.me.test1.R;
 import com.me.test1.dto.florist.FloristDTO;
@@ -33,7 +34,6 @@ import retrofit2.Response;
 
 public class FloristPlantsFragment extends Fragment {
 
-    private Long floristId;
     private ImageView image;
     private TextView name;
     private TextView plantsQuantity;
@@ -44,12 +44,6 @@ public class FloristPlantsFragment extends Fragment {
     List<PlantListRecordDTO> dataset;
     protected RecyclerView.LayoutManager manager;
     protected PlantAdapter adapter;
-    FloristDTO florist = null;
-
-
-    public FloristPlantsFragment(Long id) {
-        floristId = id;
-    }
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -60,53 +54,43 @@ public class FloristPlantsFragment extends Fragment {
         image = view.findViewById(R.id.floristAvatar);
         name = view.findViewById(R.id.floristName);
         plantsQuantity = view.findViewById(R.id.floristPlantsQuantity);
-        edit = view.findViewById(R.id.btnEditFloristInfo);//??
+        edit = view.findViewById(R.id.btnEditFloristInfo);
 
-        plantTypeApi = ApiClient.getClient().create(PlantTypeApi.class);
-        plantTypeApi.getFlorist(floristId).enqueue(new Callback<FloristDTO>() {
-            @Override
-            public void onResponse(Call<FloristDTO> call, Response<FloristDTO> response) {
-                florist = response.body();
-                name.setText(florist.getName());
-                plantsQuantity.setText(Integer.toString(florist.getPlantsQuantity()));
-                if (Objects.equals(florist.getAvatar(), "string")){
-                    Picasso.with(requireContext())
-                        .load(R.drawable.avatar)
-                        .fit()
-                        .centerCrop()
-                        .into(image);
-                }else{
-                    Picasso.with(requireContext())
-                            .load(florist.getAvatar())
-                            .fit()
-                            .centerCrop()
-                            .into(image);
-                }
-            }
 
-            @Override
-            public void onFailure(Call<FloristDTO> call, Throwable t) {
-                Toast.makeText(getContext(), "Error", Toast.LENGTH_SHORT).show();
-            }
-        });
+        name.setText(Info.getName());
+        if (Objects.equals(Info.getAvatar(), null)){
+            Picasso.with(requireContext())
+                    .load(R.drawable.avatar)
+                    .fit()
+                    .centerCrop()
+                    .into(image);
+        }else{
+            Picasso.with(requireContext())
+                    .load(Info.getAvatar())
+                    .fit()
+                    .centerCrop()
+                    .into(image);
+        }
 
-        edit.setOnClickListener(v -> ((MainActivity)getActivity()).replaceFragmentEditFloristInfo(florist));
+        edit.setOnClickListener(v -> ((MainActivity)getActivity()).replaceFragmentEditFloristInfo());
 
         dataset = new ArrayList<>();
         RecyclerView rv = view.findViewById(R.id.floristPlantsRecycler);
 
-        PlantAdapter.OnClickListener clickListener = (plant, position) -> ((MainActivity)getActivity()).replaceFragmentPlantCard(plant, floristId);
+        PlantAdapter.OnClickListener clickListener = (plant, position) -> ((MainActivity)getActivity()).replaceFragmentPlantCard(plant, Info.getId());
 
         manager = new LinearLayoutManager(requireContext());
         rv.setLayoutManager(manager);
         adapter = new PlantAdapter(clickListener, dataset);
         rv.setAdapter(adapter);
+        plantTypeApi = ApiClient.getClient().create(PlantTypeApi.class);
 
-        plantTypeApi.getFloristPlants(floristId).enqueue(new Callback<List<PlantListRecordDTO>>() {
+        plantTypeApi.getFloristPlants(Info.getId()).enqueue(new Callback<List<PlantListRecordDTO>>() {
             @Override
             public void onResponse(Call<List<PlantListRecordDTO>> call, Response<List<PlantListRecordDTO>> response) {
                 dataset.addAll(response.body());
                 rv.getAdapter().notifyDataSetChanged();
+                plantsQuantity.setText(Integer.toString(dataset.size()));
 
             }
 

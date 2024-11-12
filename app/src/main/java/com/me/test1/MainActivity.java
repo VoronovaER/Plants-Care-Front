@@ -1,11 +1,23 @@
 package com.me.test1;
 
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.MenuItem;
+import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -13,11 +25,14 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.messaging.FirebaseMessaging;
 import com.me.test1.databinding.ActivityMainBinding;
 import com.me.test1.dto.florist.FloristDTO;
 import com.me.test1.dto.plant.PlantDTO;
 import com.me.test1.dto.plant.PlantListRecordDTO;
 import com.me.test1.dto.planttype.PlantTypeListRecordDTO;
+import com.me.test1.network.ApiClient;
+import com.me.test1.network.PlantTypeApi;
 import com.me.test1.ui.dashboard.PlantRegistrationFragment;
 import com.me.test1.ui.dashboard.PlantTypeCardFragment;
 import com.me.test1.ui.dashboard.PlantTypeListFragment;
@@ -30,6 +45,8 @@ import com.me.test1.ui.notifications.DateNotificationFragment;
 public class MainActivity extends AppCompatActivity {
 
     private ActivityMainBinding binding;
+    PlantTypeApi plantTypeApi;
+    private static final String TAG = "MyFirebaseMsgService";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +58,7 @@ public class MainActivity extends AppCompatActivity {
             Info.setEmail(FirebaseAuth.getInstance().getCurrentUser().getEmail());
             binding = ActivityMainBinding.inflate(getLayoutInflater());
             setContentView(binding.getRoot());
+            plantTypeApi = ApiClient.getClient().create(PlantTypeApi.class);
 
             BottomNavigationView navView = findViewById(R.id.nav_view);
             AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
@@ -49,7 +67,31 @@ public class MainActivity extends AppCompatActivity {
             NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_main);
             NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
             NavigationUI.setupWithNavController(binding.navView, navController);
+            FirebaseMessaging.getInstance().getToken()
+                    .addOnCompleteListener(task -> {
+                        if (!task.isSuccessful()) {
+                            Log.w(TAG, "Fetching FCM registration token failed", task.getException());
+                            return;
+                        }
+                        String token = task.getResult();
+                        Log.i(TAG, token);
+                        updateToken(token);
+                    });
         }
+    }
+
+    public void updateToken(String token){
+        plantTypeApi.updateFloristFirebaseToken(token, Info.getEmail()).enqueue(new retrofit2.Callback<Void>() {
+            @Override
+            public void onResponse(retrofit2.Call<Void> call, retrofit2.Response<Void> response) {
+                Log.d(TAG, "token updated");
+            }
+
+            @Override
+            public void onFailure(retrofit2.Call<Void> call, Throwable t) {
+                Log.d(TAG, "token not updated");
+            }
+        });
     }
 
     public void replaceFragment1(PlantTypeListRecordDTO plantType){
@@ -66,9 +108,9 @@ public class MainActivity extends AppCompatActivity {
         t.commit();
     }
 
-    public void replaceFragmentHome(Long id){
+    public void replaceFragmentHome(){
         FragmentTransaction t = getSupportFragmentManager().beginTransaction();
-        FloristPlantsFragment mFrag = new FloristPlantsFragment(id);
+        FloristPlantsFragment mFrag = new FloristPlantsFragment();
         t.replace(R.id.home_frame_layout, mFrag);
         t.commit();
     }
@@ -87,9 +129,9 @@ public class MainActivity extends AppCompatActivity {
         t.commit();
     }
 
-    public void replaceFragmentEditFloristInfo(FloristDTO florist) {
+    public void replaceFragmentEditFloristInfo() {
         FragmentTransaction t = getSupportFragmentManager().beginTransaction();
-        EditFloristInfoFragment mFrag = new EditFloristInfoFragment(florist);
+        EditFloristInfoFragment mFrag = new EditFloristInfoFragment();
         t.replace(R.id.home_frame_layout, mFrag);
         t.commit();
     }
@@ -105,4 +147,39 @@ public class MainActivity extends AppCompatActivity {
         t.replace(R.id.home_frame_layout, new EditFloristPlantFragment(plant));
         t.commit();
     }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                this.finish();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+    private final ActivityResultLauncher<String> requestPermissionLauncher =
+            registerForActivityResult(new ActivityResultContracts.RequestPermission(), isGranted -> {
+                if (isGranted) {
+                    // FCM SDK (and your app) can post notifications.
+                } else {
+                    // TODO: Inform user that that your app will not show notifications.
+                }
+            });
+
+    /*private void askNotificationPermission() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            if (ContextCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS) ==
+                    PackageManager.PERMISSION_GRANTED) {
+                // FCM SDK (and your app) can post notifications.
+            } else if (shouldShowRequestPermissionRationale(Manifest.permission.POST_NOTIFICATIONS)) {
+                // TODO: display an educational UI explaining to the user the features that will be enabled
+                //       by them granting the POST_NOTIFICATION permission. This UI should provide the user
+                //       "OK" and "No thanks" buttons. If the user selects "OK," directly request the permission.
+                //       If the user selects "No thanks," allow the user to continue without notifications.
+            } else {
+                // Directly ask for the permission
+                requestPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS);
+            }
+        }
+    }*/
 }

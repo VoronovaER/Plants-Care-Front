@@ -17,7 +17,6 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.FirebaseUser;
 import com.me.test1.dto.florist.BaseFloristDTO;
 import com.me.test1.dto.florist.FloristDTO;
@@ -30,7 +29,7 @@ import retrofit2.Response;
 
 public class Authorization extends AppCompatActivity {
     private Boolean isLoggedIn = true;
-    private TextInputEditText username, password;
+    private TextInputEditText email, password, name;
     private Button login;
     private TextView text, btnText;
     private FirebaseAuth mAuth;
@@ -44,7 +43,8 @@ public class Authorization extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         plantTypeApi = ApiClient.getClient().create(PlantTypeApi.class);
 
-        username = findViewById(R.id.emailAuth);
+        name = findViewById(R.id.nameAuth);
+        email = findViewById(R.id.emailAuth);
         password = findViewById(R.id.passwordAuth);
         login = findViewById(R.id.loginAuth);
         text = findViewById(R.id.register1Auth);
@@ -53,7 +53,7 @@ public class Authorization extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-                if (username.getText().toString().isEmpty() || password.getText().toString().isEmpty()) {
+                if (email.getText().toString().isEmpty() || password.getText().toString().isEmpty()) {
                     Toast.makeText(Authorization.this, "Необходимы пароль и email", Toast.LENGTH_LONG).show();
                 }else{
                     if (isLoggedIn) {
@@ -75,7 +75,7 @@ public class Authorization extends AppCompatActivity {
     }
 
     public void login() {
-        mAuth.signInWithEmailAndPassword(username.getText().toString(), password.getText().toString())
+        mAuth.signInWithEmailAndPassword(email.getText().toString(), password.getText().toString())
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
@@ -96,7 +96,7 @@ public class Authorization extends AppCompatActivity {
     }
 
     public void register() {
-        mAuth.createUserWithEmailAndPassword(username.getText().toString(), password.getText().toString())
+        mAuth.createUserWithEmailAndPassword(email.getText().toString(), password.getText().toString())
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
@@ -136,7 +136,8 @@ public class Authorization extends AppCompatActivity {
         Toast.makeText(Authorization.this, "Успешно", Toast.LENGTH_LONG).show();
         isLoggedIn = true;
         BaseFloristDTO florist = new BaseFloristDTO();
-        florist.setEmail(username.getText().toString());
+        florist.setEmail(email.getText().toString());
+        florist.setName(name.getText().toString());
         plantTypeApi.createFlorist(florist).enqueue(new Callback<FloristDTO>() {
             @Override
             public void onResponse(Call<FloristDTO> call, Response<FloristDTO> response) {
@@ -153,9 +154,10 @@ public class Authorization extends AppCompatActivity {
     public void successLogin() {
         FirebaseUser user = mAuth.getCurrentUser();
         Toast.makeText(Authorization.this, "Успешно", Toast.LENGTH_LONG).show();
-        Info.setEmail(username.getText().toString());
-        Info.setPassword(password.getText().toString());
-        plantTypeApi.getFloristByEmail(username.getText().toString()).enqueue(new Callback<FloristDTO>() {
+        Info.setEmail(email.getText().toString());
+        Info.setName(password.getText().toString());
+        Info.setName(name.getText().toString());
+        plantTypeApi.getFloristByEmail(email.getText().toString()).enqueue(new Callback<FloristDTO>() {
             @Override
             public void onResponse(Call<FloristDTO> call, Response<FloristDTO> response) {
                 startActivity(new Intent(Authorization.this, MainActivity.class));

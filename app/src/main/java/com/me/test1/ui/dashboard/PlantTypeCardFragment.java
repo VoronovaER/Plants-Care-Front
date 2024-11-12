@@ -3,6 +3,7 @@ package com.me.test1.ui.dashboard;
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -83,6 +84,13 @@ public class PlantTypeCardFragment extends Fragment {
         btnAdd.setOnClickListener(v -> {
             ((MainActivity) getActivity()).replaceFragmentRegistration(plantType);
         });
+        OnBackPressedCallback callback = new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                ((MainActivity) getActivity()).replaceFragment2();
+            }
+        };
+        requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), callback);
         return view;
     }
 }

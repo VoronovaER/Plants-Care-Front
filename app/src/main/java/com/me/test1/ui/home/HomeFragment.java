@@ -36,8 +36,10 @@ public class HomeFragment extends Fragment {
             @Override
             public void onResponse(Call<FloristDTO> call, Response<FloristDTO> response) {
                 Info.setId(response.body().getId());
+                Info.setName(response.body().getName());
+                Info.setAvatar(response.body().getAvatar());
                 Long floristId = Info.getId();
-                ((MainActivity)getActivity()).replaceFragmentHome(floristId);
+                ((MainActivity)getActivity()).replaceFragmentHome();
             }
 
             @Override
