@@ -34,7 +34,7 @@ public class HomeFragment extends Fragment {
                              ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_home, container, false);
         plantTypeApi = ApiClient.getClient().create(PlantTypeApi.class);
-        plantTypeApi.getFloristByEmail(Info.getEmail()).enqueue(new Callback<FloristDTO>() {
+        plantTypeApi.getCurrentFlorist().enqueue(new Callback<FloristDTO>() {
             @Override
             public void onResponse(Call<FloristDTO> call, Response<FloristDTO> response) {
                 Info.setId(response.body().getId());

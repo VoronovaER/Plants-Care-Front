@@ -64,6 +64,9 @@ public interface PlantTypeApi {
     @POST("api/v1/florist")
     Call<FloristDTO> createFlorist(@Body BaseFloristDTO floristDTO);
 
+    @GET("api/v1/florist/current")
+    Call<FloristDTO> getCurrentFlorist();
+
     @GET("api/v1/florist/email/{email}")
     Call<FloristDTO> getFloristByEmail(@Path("email") String id);
 

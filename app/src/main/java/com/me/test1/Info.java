@@ -5,6 +5,7 @@ public class Info {
     private static String email = null;
     private static Long id = null;
     private static String avatar = null;
+    private static String password = null;
 
     public static String getName() {
         return name;
@@ -33,5 +34,13 @@ public class Info {
 
     public static void setAvatar(String avatar) {
         Info.avatar = avatar;
+    }
+
+    public static String getPassword() {
+        return password;
+    }
+
+    public static void setPassword(String password) {
+        Info.password = password;
     }
 }

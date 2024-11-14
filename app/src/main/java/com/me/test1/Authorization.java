@@ -33,7 +33,6 @@ public class Authorization extends AppCompatActivity {
     private Button login;
     private TextView text, btnText;
     private FirebaseAuth mAuth;
-    public PlantTypeApi plantTypeApi;
     private static final String TAG = "EmailPassword";
     @SuppressLint("MissingInflatedId")
     @Override
@@ -41,7 +40,6 @@ public class Authorization extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.authorization);
         mAuth = FirebaseAuth.getInstance();
-        plantTypeApi = ApiClient.getClient().create(PlantTypeApi.class);
 
         name = findViewById(R.id.nameAuth);
         email = findViewById(R.id.emailAuth);
@@ -81,6 +79,10 @@ public class Authorization extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
+                            Info.setEmail(email.getText().toString());
+                            Info.setName(password.getText().toString());
+                            Info.setName(name.getText().toString());
+                            Info.setPassword(password.getText().toString());
                             Log.d(TAG, "signInWithEmail:success");
                             successLogin();
                         } else if(task.getException().toString().equals("com.google.firebase.auth.FirebaseAuthInvalidCredentialsException")){
@@ -102,6 +104,10 @@ public class Authorization extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
+                            Info.setEmail(email.getText().toString());
+                            Info.setName(password.getText().toString());
+                            Info.setName(name.getText().toString());
+                            Info.setPassword(password.getText().toString());
                             Log.d(TAG, "createUserWithEmail:success");
                             successRegistration();
                         } else if (task.getException().toString().equals("com.google.firebase.auth.FirebaseAuthInvalidCredentialsException")){
@@ -141,6 +147,7 @@ public class Authorization extends AppCompatActivity {
         BaseFloristDTO florist = new BaseFloristDTO();
         florist.setEmail(email.getText().toString());
         florist.setName(name.getText().toString());
+        PlantTypeApi plantTypeApi = ApiClient.getClient().create(PlantTypeApi.class);
         plantTypeApi.createFlorist(florist).enqueue(new Callback<FloristDTO>() {
             @Override
             public void onResponse(Call<FloristDTO> call, Response<FloristDTO> response) {
@@ -157,9 +164,7 @@ public class Authorization extends AppCompatActivity {
     public void successLogin() {
         FirebaseUser user = mAuth.getCurrentUser();
         Toast.makeText(Authorization.this, "Успешно", Toast.LENGTH_LONG).show();
-        Info.setEmail(email.getText().toString());
-        Info.setName(password.getText().toString());
-        Info.setName(name.getText().toString());
+        PlantTypeApi plantTypeApi = ApiClient.getClient().create(PlantTypeApi.class);
         plantTypeApi.getFloristByEmail(email.getText().toString()).enqueue(new Callback<FloristDTO>() {
             @Override
             public void onResponse(Call<FloristDTO> call, Response<FloristDTO> response) {
