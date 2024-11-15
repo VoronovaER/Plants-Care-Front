@@ -60,4 +60,5 @@ dependencies {
     implementation("com.google.firebase:firebase-auth:23.1.0")
     implementation("com.google.firebase:firebase-messaging")
     implementation("com.google.firebase:firebase-analytics")
+    implementation("com.github.bumptech.glide:glide:4.14.2")
 }

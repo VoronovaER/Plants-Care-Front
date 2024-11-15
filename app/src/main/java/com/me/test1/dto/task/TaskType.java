@@ -6,4 +6,5 @@ public enum TaskType {
     PLANT_RELOCATION,
     PLANT_REPLANTING,
     PLANT_CHECKING,
+    PLANT_POLLING
 }

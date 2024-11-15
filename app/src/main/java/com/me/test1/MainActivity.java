@@ -31,7 +31,6 @@ import androidx.navigation.ui.NavigationUI;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.messaging.FirebaseMessaging;
-import com.me.test1.databinding.ActivityMainBinding;
 import com.me.test1.dto.florist.FloristDTO;
 import com.me.test1.dto.plant.PlantDTO;
 import com.me.test1.dto.plant.PlantListRecordDTO;
@@ -46,13 +45,16 @@ import com.me.test1.ui.home.EditFloristPlantFragment;
 import com.me.test1.ui.home.FloristPlantInfoFragment;
 import com.me.test1.ui.home.FloristPlantsFragment;
 import com.me.test1.ui.notifications.DateNotificationFragment;
+import com.me.test1.ui.notifications.TaskRegistrationFragment;
 
+import java.time.LocalDate;
 import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
 
     PlantTypeApi plantTypeApi;
     private static final String TAG = "MyFirebaseMsgService";
+    private static final String TAG_LAUNCH = "Launch";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -142,15 +144,22 @@ public class MainActivity extends AppCompatActivity {
         t.commit();
     }
 
-    public void replaceDateNotificationsFragment(Long floristId) {
+    public void replaceDateNotificationsFragment() {
         FragmentTransaction t = getSupportFragmentManager().beginTransaction();
-        t.replace(R.id.notification_frame_layout, new DateNotificationFragment(floristId));
+        t.replace(R.id.notification_frame_layout, new DateNotificationFragment());
         t.commit();
     }
 
     public void replaceEditFloristPlantFragment(PlantDTO plant) {
         FragmentTransaction t = getSupportFragmentManager().beginTransaction();
         t.replace(R.id.home_frame_layout, new EditFloristPlantFragment(plant));
+        t.commit();
+    }
+
+    public void replaceTaskRegistrationFragment(LocalDate date){
+        FragmentTransaction t = getSupportFragmentManager().beginTransaction();
+        TaskRegistrationFragment mFrag = new TaskRegistrationFragment(date);
+        t.replace(R.id.notification_frame_layout, mFrag);
         t.commit();
     }
 

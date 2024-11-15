@@ -10,10 +10,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.CalendarView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.me.test1.Info;
+import com.me.test1.MainActivity;
 import com.me.test1.R;
 import com.me.test1.dto.florist.FloristTaskDTO;
 import com.me.test1.dto.task.TaskListRecordDTO;
@@ -37,12 +40,9 @@ public class DateNotificationFragment extends Fragment {
     private PlantTypeApi plantTypeApi;
     protected RecyclerView.LayoutManager manager;
     protected DateNotificationAdapter adapter;
+    private Button create;
     List<FloristTaskDTO> dataset = new ArrayList<>();
-    private Long floristId;
-
-    public DateNotificationFragment(Long floristId) {
-        this.floristId = floristId;
-    }
+    LocalDate chosenDate;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -52,9 +52,10 @@ public class DateNotificationFragment extends Fragment {
 
         calendar = v.findViewById(R.id.calendar);
         date = v.findViewById(R.id.chosen_date);
-        LocalDate currentDate = null;
-        currentDate = LocalDate.now();
-        date.setText(currentDate.getDayOfMonth() + " " + months[currentDate.getMonthValue()-1] + " " + currentDate.getYear() + " года");
+        create = v.findViewById(R.id.btn_create_task);
+
+        chosenDate = LocalDate.now();
+        date.setText(chosenDate.getDayOfMonth() + " " + months[chosenDate.getMonthValue()-1] + " " + chosenDate.getYear() + " года");
 
         RecyclerView rv = v.findViewById(R.id.date_notification_recycler);
 
@@ -67,12 +68,20 @@ public class DateNotificationFragment extends Fragment {
         rv.setAdapter(adapter);
 
         plantTypeApi = ApiClient.getClient().create(PlantTypeApi.class);
-        changedDate(rv, currentDate.getYear(), currentDate.getMonthValue(), currentDate.getDayOfMonth());
+        changedDate(rv, chosenDate.getYear(), chosenDate.getMonthValue(), chosenDate.getDayOfMonth());
 
         calendar.setOnDateChangeListener((view, year, month, dayOfMonth) -> {
             String chose_date = dayOfMonth + " " + months[month] + " " + year + " года";
             date.setText(chose_date);
+            chosenDate = LocalDate.of(year, month+1, dayOfMonth);
             changedDate(rv, year, month+1, dayOfMonth);
+        });
+
+        create.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((MainActivity)getActivity()).replaceTaskRegistrationFragment(chosenDate);
+            }
         });
 
         return v;
@@ -80,7 +89,7 @@ public class DateNotificationFragment extends Fragment {
 
     void changedDate(RecyclerView rv, int year, int month, int dayOfMonth){
         dataset.clear();
-        plantTypeApi.getTaskList(floristId, LocalDate.of(year, month, dayOfMonth)).enqueue(new Callback<List<FloristTaskDTO>>() {
+        plantTypeApi.getTaskList(Info.getId(), LocalDate.of(year, month, dayOfMonth)).enqueue(new Callback<List<FloristTaskDTO>>() {
             @Override
             public void onResponse(Call<List<FloristTaskDTO>> call, Response<List<FloristTaskDTO>> response) {
                 dataset.addAll(response.body());

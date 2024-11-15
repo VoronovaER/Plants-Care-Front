@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Filter;
 import android.widget.Filterable;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
@@ -13,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.me.test1.R;
 import com.me.test1.dto.plant.PlantListRecordDTO;
 import com.me.test1.dto.planttype.PlantTypeListRecordDTO;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,15 +29,18 @@ public class PlantTypeAdapter extends RecyclerView.Adapter<PlantTypeAdapter.View
     private List<PlantTypeListRecordDTO> filterDataset;
     public static class ViewHolder extends RecyclerView.ViewHolder {
         private final TextView textView;
+        private final ImageView imageView;
 
         public ViewHolder(View view) {
             super(view);
-            textView = (TextView) view.findViewById(R.id.textView);
+            imageView = (ImageView) view.findViewById(R.id.rec_pic_plant_type);
+            textView = (TextView) view.findViewById(R.id.rec_text_plant_type);
         }
 
         public TextView getTextView() {
             return textView;
         }
+        public ImageView getImageView() {return imageView;}
     }
     public PlantTypeAdapter(List<PlantTypeListRecordDTO> dataSet, OnClickListener onClickListener) {
 
@@ -47,9 +52,8 @@ public class PlantTypeAdapter extends RecyclerView.Adapter<PlantTypeAdapter.View
     // Create new views (invoked by the layout manager)
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
-        // Create a new view, which defines the UI of the list item
         View view = LayoutInflater.from(viewGroup.getContext())
-                .inflate(R.layout.plant_type_item, viewGroup, false);
+                .inflate(R.layout.plant_type_row, viewGroup, false);
 
         return new ViewHolder(view);
     }
@@ -58,6 +62,11 @@ public class PlantTypeAdapter extends RecyclerView.Adapter<PlantTypeAdapter.View
     public void onBindViewHolder(ViewHolder viewHolder, @SuppressLint("RecyclerView") final int position) {
         viewHolder.getTextView().setText(filterDataset.get(position).getName());
         viewHolder.itemView.setOnClickListener(v -> onClickListener.onClick(filterDataset.get(position), position));
+        Picasso.with(viewHolder.imageView.getContext())
+                .load(filterDataset.get(position).getUrl())
+                .fit()
+                .centerCrop()
+                .into(viewHolder.imageView);
     }
 
     @Override

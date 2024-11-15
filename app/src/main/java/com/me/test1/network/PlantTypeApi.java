@@ -11,6 +11,8 @@ import com.me.test1.dto.plant.PlantDTO;
 import com.me.test1.dto.plant.PlantListRecordDTO;
 import com.me.test1.dto.planttype.PlantTypeDTO;
 import com.me.test1.dto.planttype.PlantTypeListRecordDTO;
+import com.me.test1.dto.task.NewTaskDTO;
+import com.me.test1.dto.task.TaskDTO;
 import com.me.test1.dto.task.TaskListRecordDTO;
 
 import java.time.LocalDate;
@@ -69,4 +71,7 @@ public interface PlantTypeApi {
 
     @PUT("api/v1/florist/{email}/firebase/{firebaseToken}")
     Call<Void> updateFloristFirebaseToken(@Path("firebaseToken") String firebaseToken, @Path("email") String email);
+
+    @POST("api/v1/task/add/{floristId}")
+    Call<TaskDTO> createTask(@Path("floristId") Long id, @Body NewTaskDTO taskDTO);
 }

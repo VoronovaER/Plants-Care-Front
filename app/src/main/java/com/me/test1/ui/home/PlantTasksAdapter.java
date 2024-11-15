@@ -40,22 +40,22 @@ public class PlantTasksAdapter extends RecyclerView.Adapter<PlantTasksAdapter.Vi
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         private final TextView name;
-        private final TextView type;
+        //private final TextView type;
         private final TextView period;
 
         public ViewHolder(View view) {
             super(view);
             name = (TextView) view.findViewById(R.id.plant_task_item_name);
-            type = (TextView) view.findViewById(R.id.plant_task_item_type);
+            //type = (TextView) view.findViewById(R.id.plant_task_item_type);
             period = (TextView) view.findViewById(R.id.plant_task_item_period);
         }
 
         public TextView getName() {
             return name;
         }
-        public TextView getType() {
+        /*public TextView getType() {
             return type;
-        }
+        }*/
 
         public TextView getPeriod() {
             return period;
@@ -66,7 +66,7 @@ public class PlantTasksAdapter extends RecyclerView.Adapter<PlantTasksAdapter.Vi
     public void onBindViewHolder(@NonNull PlantTasksAdapter.ViewHolder holder, int position) {
         TaskListRecordDTO task = dataset.get(position);
         holder.getName().setText(task.getName());
-        String type = "";
+        /*String type = "";
         if (task.getType() == PLANT_WATERING){
             type = "Полив";
         }else if (task.getType() == PLANT_FEEDING){
@@ -78,7 +78,7 @@ public class PlantTasksAdapter extends RecyclerView.Adapter<PlantTasksAdapter.Vi
         }else if (task.getType() == PLANT_CHECKING){
             type = "Проверка";
         }
-        holder.getType().setText(type);
+        holder.getType().setText(type);*/
         String period = "";
         if (task.getPeriod() == HOURLY) {
             period = "Каждый час";

@@ -1,45 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_margin="10dp"
+    app:cardCornerRadius="10dp"
+    app:cardElevation="10dp"
+
     tools:context=".ui.home.EditFloristInfoFragment">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <Button
-            android:id="@+id/btn_back_edit_florist"
-            style="?android:attr/borderlessButtonStyle"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_margin="20dp"
-            android:background="@drawable/back_svgrepo_com"
-            android:backgroundTint="@color/white"
-            android:textColor="@color/main_green"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            android:layout_gravity="center_horizontal">
+
+            <Button
+                android:id="@+id/btn_back_edit_florist"
+                style="?android:attr/borderlessButtonStyle"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_margin="10dp"
+                android:background="@drawable/back_svgrepo_com"
+                android:backgroundTint="@color/white"
+                android:textColor="@color/main_green"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/textView8"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="100dp"
                 android:text="Редактировать профиль"
                 android:textColor="@color/main_green"
                 android:textSize="20sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="@+id/btn_back_edit_florist" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/textInputLayout3"
@@ -92,6 +90,4 @@
                 app:layout_constraintTop_toBottomOf="@+id/textInputLayout5" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</FrameLayout>
+</androidx.cardview.widget.CardView>

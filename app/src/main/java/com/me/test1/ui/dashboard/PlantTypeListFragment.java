@@ -5,6 +5,7 @@ import android.os.Bundle;
 
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -28,7 +29,6 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class PlantTypeListFragment extends Fragment {
-    protected RecyclerView.LayoutManager manager;
     protected PlantTypeAdapter adapter;
     List<PlantTypeListRecordDTO> dataset;
     private RecyclerView rv;
@@ -59,11 +59,10 @@ public class PlantTypeListFragment extends Fragment {
                 ((MainActivity)getActivity()).replaceFragment1(plantType);
             }
         };
-
-        manager = new LinearLayoutManager(requireContext());
-        rv.setLayoutManager(manager);
         adapter = new PlantTypeAdapter(dataset, clickListener);
         rv.setAdapter(adapter);
+        GridLayoutManager layoutManager=new GridLayoutManager(requireContext(),2);
+        rv.setLayoutManager(layoutManager);
         plantTypeApi.getPlantTypes().enqueue(new Callback<List<PlantTypeListRecordDTO>>() {
             @Override
             public void onResponse(Call<List<PlantTypeListRecordDTO>> call, Response<List<PlantTypeListRecordDTO>> response) {

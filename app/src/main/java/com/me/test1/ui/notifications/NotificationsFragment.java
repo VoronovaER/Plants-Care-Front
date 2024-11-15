@@ -27,7 +27,7 @@ public class NotificationsFragment extends Fragment {
                              ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_notifications, container, false);
         Long floristId = Info.getId();
-        ((MainActivity)getActivity()).replaceDateNotificationsFragment(floristId);
+        ((MainActivity)getActivity()).replaceDateNotificationsFragment();
         return root;
     }
 
