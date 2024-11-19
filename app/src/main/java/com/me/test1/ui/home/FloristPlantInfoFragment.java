@@ -46,7 +46,7 @@ public class FloristPlantInfoFragment extends Fragment {
     private Button btnBack;
     private PlantTypeApi plantTypeApi;
     private ImageView img;
-    private TextView name, place, type;
+    private TextView name, place, type, description;
     private Button btnEdit;
     private Button btnDelete;
     protected RecyclerView.LayoutManager manager;
@@ -74,6 +74,7 @@ public class FloristPlantInfoFragment extends Fragment {
         type = v.findViewById(R.id.plant_card_type);
         btnEdit = v.findViewById(R.id.btn_edit_plant_card);
         btnDelete = v.findViewById(R.id.btn_del_plant_card);
+        description = v.findViewById(R.id.plant_card_description);
 
         OnBackPressedCallback callback = new OnBackPressedCallback(true) {
             @Override
@@ -93,6 +94,11 @@ public class FloristPlantInfoFragment extends Fragment {
                     name.setText(plantDTO.getName());
                     place.setText(plantDTO.getPlace());
                     type.setText(plantDTO.getPlantType().getName());
+                    if (plantDTO.getDescription() != null) {
+                        description.setText(plantDTO.getDescription());
+                    }else{
+                        description.setText("Нет описания");
+                    }
                     if (!Objects.equals(plantDTO.getUrl(), null)) {
                         Picasso.with(requireContext())
                                 .load(plantDTO.getUrl())

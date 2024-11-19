@@ -1,5 +1,6 @@
 package com.me.test1.ui.home;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 
 import androidx.activity.OnBackPressedCallback;
@@ -27,8 +28,7 @@ import retrofit2.Response;
 
 public class EditFloristPlantFragment extends Fragment {
     private PlantDTO plant;
-    private TextInputEditText name;
-    private TextInputEditText place;
+    private TextInputEditText name, place, description;
     private Button save;
     private Button back;
     PlantTypeApi plantTypeApi;
@@ -37,6 +37,7 @@ public class EditFloristPlantFragment extends Fragment {
         this.plant = plant;
     }
 
+    @SuppressLint("MissingInflatedId")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -46,9 +47,11 @@ public class EditFloristPlantFragment extends Fragment {
         place = v.findViewById(R.id.place_edit_plant);
         save = v.findViewById(R.id.btn_save_edit_plant);
         back = v.findViewById(R.id.btn_back_edit_plant);
+        description = v.findViewById(R.id.descr_edit_plant);
 
         name.setText(plant.getName());
         place.setText(plant.getPlace());
+        description.setText(plant.getDescription());
 
         back.setOnClickListener(v1 -> ((MainActivity)getActivity()).replaceFragmentPlantCard(plant.getPlantListRecordDTO(), Info.getId()));
         plantTypeApi = ApiClient.getClient().create(PlantTypeApi.class);
@@ -58,6 +61,7 @@ public class EditFloristPlantFragment extends Fragment {
             public void onClick(View v) {
                 plant.setName(name.getText().toString());
                 plant.setPlace(place.getText().toString());
+                plant.setDescription(description.getText().toString());
                 plantTypeApi.updatePlant(plant.getId(), plant.getBasePlantDTO()).enqueue(new Callback<PlantDTO>() {
 
                     @Override

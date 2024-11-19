@@ -29,12 +29,9 @@ import retrofit2.Response;
 
 public class PlantTypeCardFragment extends Fragment {
 
-    private Button btnFrag1;
-    private Button btnAdd;
+    private Button btnFrag1, btnAdd;
     private PlantTypeListRecordDTO plantType;
-    private TextView name;
-    private TextView latinName;
-    private TextView description;
+    private TextView name, latinName, description, blossom, temperature, light, watering, feeding;
     private ImageView image;
     PlantTypeApi plantTypeApi;
 
@@ -57,19 +54,32 @@ public class PlantTypeCardFragment extends Fragment {
         latinName = view.findViewById(R.id.PlantTypeLatinName);
         description = view.findViewById(R.id.PlantTypeDescription);
         image = view.findViewById(R.id.PlantTypeImage);
+        blossom = view.findViewById(R.id.PlantTypeBlossom);
+        light = view.findViewById(R.id.PlantTypeLight);
+        temperature = view.findViewById(R.id.PlantTypeTemperature);
+        watering = view.findViewById(R.id.PlantTypeWatering);
+        feeding = view.findViewById(R.id.PlantTypeFeeding);
+
         plantTypeApi = ApiClient.getClient().create(PlantTypeApi.class);
         plantTypeApi.getPlantType(plantType.getId()).enqueue(new Callback<PlantTypeDTO>() {
             @Override
             public void onResponse(Call<PlantTypeDTO> call, Response<PlantTypeDTO> response) {
+                if (response.isSuccessful()) {
                     PlantTypeDTO plantTypeDTO = response.body();
                     name.setText(plantTypeDTO.getName());
                     latinName.setText(plantTypeDTO.getLatinName());
                     description.setText(plantTypeDTO.getDescription());
-                   Picasso.with(requireContext())
-                        .load(plantTypeDTO.getUrl())
-                        .fit()
-                           .centerCrop()
-                        .into(image);
+                    blossom.setText("Цветение: " + plantTypeDTO.getBlossom().toLowerCase());
+                    temperature.setText(String.format("Температура: лето: %d - %d, зима: %d - %d", plantTypeDTO.getSumTempMin(), plantTypeDTO.getSumTempMax(), plantTypeDTO.getWinTempMin(), plantTypeDTO.getWinTempMax()));
+                    light.setText(String.format("Свет: %s", plantTypeDTO.getLight().toLowerCase()));
+                    watering.setText(String.format("Полив: лето - %s, зима - %s", plantTypeDTO.getSumWatering().toLowerCase(), plantTypeDTO.getWinWatering().toLowerCase()));
+                    feeding.setText(String.format("Удобрение: %s раза в месяц", plantTypeDTO.getFertilize()));
+                    Picasso.with(requireContext())
+                            .load(plantTypeDTO.getUrl())
+                            .fit()
+                            .centerCrop()
+                            .into(image);
+                }
             }
 
             @Override

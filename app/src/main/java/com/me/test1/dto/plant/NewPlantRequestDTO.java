@@ -12,7 +12,6 @@ public class NewPlantRequestDTO extends BasePlantDTO{
     @Expose
     private Long floristId;
 
-
     public Long getPlantTypeId() {return plantTypeId;}
     public void setPlantTypeId(Long plantTypeId) {this.plantTypeId = plantTypeId;}
 

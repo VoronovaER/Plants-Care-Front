@@ -14,6 +14,18 @@ public class BasePlantDTO {
     @SerializedName("url")
     @Expose
     private String url;
+    @SerializedName("description")
+    @Expose
+    private String description;
+
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
     public String getName() {
         return name;

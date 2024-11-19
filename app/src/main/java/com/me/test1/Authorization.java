@@ -56,6 +56,10 @@ public class Authorization extends AppCompatActivity {
             public void onClick(View v) {
                 if (email.getText().toString().isEmpty() || password.getText().toString().isEmpty()) {
                     Toast.makeText(Authorization.this, "Необходимы пароль и email", Toast.LENGTH_LONG).show();
+                }else if (checkPassword(password.getText().toString()) && !isLoggedIn){
+                    password.setError("Пароль должен содержать от 6 до 20 символов и содержать буквы и цифры");
+                }else if(checkEmail(email.getText().toString())){
+                    email.setError("Email не соответствует формату");
                 }else{
                     if (isLoggedIn) {
                         login();
@@ -87,6 +91,10 @@ public class Authorization extends AppCompatActivity {
                             Log.w(TAG, "signInWithEmail:failure", task.getException());
                             Toast.makeText(Authorization.this, "Неверные данные",
                                     Toast.LENGTH_SHORT).show();
+                        }else if (task.getException().toString().equals("com.google.firebase.auth.FirebaseAuthUserCollisionException")){
+                            Log.w(TAG, "signInWithEmail:failure", task.getException());
+                            Toast.makeText(Authorization.this, "Пользователь уже существует, войдите в аккаунт",
+                               Toast.LENGTH_LONG).show();
                         }else{
                             Log.w(TAG, "signInWithEmail:failure", task.getException());
                             Toast.makeText(Authorization.this, "Ошибка",
@@ -104,13 +112,9 @@ public class Authorization extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             Log.d(TAG, "createUserWithEmail:success");
                             successRegistration();
-                        } else if (task.getException().toString().equals("com.google.firebase.auth.FirebaseAuthInvalidCredentialsException")){
-                            Log.w(TAG, "createUserWithEmail:failure", task.getException());
-                            Toast.makeText(Authorization.this, "Неверный формат почты",
-                                    Toast.LENGTH_SHORT).show();
                         }else{
                             Log.w(TAG, "createUserWithEmail:failure", task.getException());
-                            Toast.makeText(Authorization.this, "Неверный формат данных",
+                            Toast.makeText(Authorization.this, "Неверные данные",
                                     Toast.LENGTH_SHORT).show();
                         }
                     }
@@ -171,5 +175,13 @@ public class Authorization extends AppCompatActivity {
                 Toast.makeText(Authorization.this, "Ошибка", Toast.LENGTH_LONG).show();
             }
         });
+    }
+
+    Boolean checkPassword(String password){
+        return password.length() < 6 || password.length() > 20 || password.chars().noneMatch(Character::isLetter) || password.chars().noneMatch(Character::isDigit);
+    }
+
+    Boolean checkEmail(String email){
+        return !android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches();
     }
 }

@@ -18,7 +18,6 @@ public class PlantDTO extends BasePlantDTO{
     @Expose
     private Long id;
 
-
     public PlantTypeDTO getPlantType() {return plantType;}
     public void setPlantType(PlantTypeDTO plantType) {this.plantType = plantType;}
 
@@ -44,6 +43,7 @@ public class PlantDTO extends BasePlantDTO{
         basePlantDTO.setName(this.getName());
         basePlantDTO.setPlace(this.getPlace());
         basePlantDTO.setUrl(this.getUrl());
+        basePlantDTO.setDescription(this.getDescription());
         return basePlantDTO;
     }
 }

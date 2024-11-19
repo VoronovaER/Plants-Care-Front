@@ -1,5 +1,6 @@
 package com.me.test1.ui.dashboard;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 
 import androidx.activity.OnBackPressedCallback;
@@ -28,8 +29,7 @@ import retrofit2.Response;
 
 public class PlantRegistrationFragment extends Fragment {
     private PlantTypeListRecordDTO plantType;
-    private TextInputEditText name;
-    private TextInputEditText place;
+    private TextInputEditText name, place, description;
     private TextView type;
     private Button save;
     private Button back;
@@ -37,6 +37,7 @@ public class PlantRegistrationFragment extends Fragment {
 
     public PlantRegistrationFragment(PlantTypeListRecordDTO plantType) {this.plantType = plantType;}
 
+    @SuppressLint("MissingInflatedId")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -47,6 +48,7 @@ public class PlantRegistrationFragment extends Fragment {
         place = v.findViewById(R.id.plant_place_reg);
         save = v.findViewById(R.id.btn_save_reg_plant);
         back = v.findViewById(R.id.btn_back_reg_plant);
+        description = v.findViewById(R.id.plant_descr_reg);
 
         type.setText(plantType.getName());
         name.setText(plantType.getName());
@@ -62,6 +64,7 @@ public class PlantRegistrationFragment extends Fragment {
                 plant.setPlace(Place);
                 plant.setPlantTypeId(plantType.getId());
                 plant.setFloristId(Info.getId());
+                plant.setDescription(description.getText().toString());
 
                 plantTypeApi = ApiClient.getClient().create(PlantTypeApi.class);
                 plantTypeApi.createPlant(plant).enqueue(new Callback<NewPlantRequestDTO>() {
