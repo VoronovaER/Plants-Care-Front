@@ -125,6 +125,7 @@ public class TaskRegistrationFragment extends Fragment {
                 newTaskDTO.setStartDate(startDateTime);
                 newTaskDTO.setEndDate(endDateTime);
                 newTaskDTO.setEnabled(true);
+                newTaskDTO.setSendNotification(true);
 
                 plantTypeApi.createTask(Info.getId(), newTaskDTO).enqueue(new Callback<TaskDTO>() {
                     @Override

@@ -11,18 +11,17 @@
         android:layout_height="match_parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginTop="100dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toBottomOf="@+id/btn_back_edit_plant">
 
             <TextView
                 android:id="@+id/textView8"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp"
                 android:text="Редактировать растение"
                 android:textColor="@color/main_green"
                 android:textSize="20sp"
@@ -72,6 +71,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="40dp"
+                app:cornerRadius = "30dp"
                 android:text="Сохранить"
                 app:layout_constraintEnd_toEndOf="@+id/textInputLayout4"
                 app:layout_constraintStart_toStartOf="@+id/textInputLayout4"

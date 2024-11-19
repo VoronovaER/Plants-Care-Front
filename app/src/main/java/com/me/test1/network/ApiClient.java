@@ -19,8 +19,8 @@ public class ApiClient {
                     .registerTypeAdapter(LocalDateTime.class, new LocalDateTimeAdapter())
                     .create();
             retrofit = new Retrofit.Builder()
-                    .baseUrl("https://back.plants-care.ru:443/")
-//                    .baseUrl("http://192.168.134.61:8080/")
+//                    .baseUrl("https://back.plants-care.ru/")
+                    .baseUrl("http://192.168.134.61:8080/")
                     .client(client)
                     .addConverterFactory(GsonConverterFactory.create(gson))
                     .build();

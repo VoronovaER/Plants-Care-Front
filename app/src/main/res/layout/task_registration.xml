@@ -1,14 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/fragment_task_registration"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="10dp"
-    app:cardCornerRadius="10dp"
 
-    app:cardElevation="10dp"
     tools:context=".ui.notifications.TaskRegistrationFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -61,6 +58,25 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textInputLayout9"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textInputLayout5">
+
+            <AutoCompleteTextView
+                android:id="@+id/plant_reg_task"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Растение"
+                android:inputType="none" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/textInputLayout6"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
             android:layout_width="300dp"
@@ -68,7 +84,7 @@
             android:layout_marginTop="20dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/textInputLayout5">
+            app:layout_constraintTop_toBottomOf="@id/textInputLayout9">
 
             <AutoCompleteTextView
                 android:id="@+id/type_reg_task"
@@ -80,7 +96,7 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/textInputLayout7"
+            android:id="@+id/textInputLayout10"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
@@ -89,11 +105,31 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textInputLayout6">
 
+            <EditText
+                android:id="@+id/time_start_task"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Время начала"
+                android:inputType="datetime"
+                android:maxLength="20"
+                app:endIconMode="clear_text" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textInputLayout7"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textInputLayout10">
+
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/date_end_task"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Дата окончания"
+                android:hint="Дата и время окончания"
                 android:inputType="datetime"
                 android:maxLength="20"
                 app:endIconMode="clear_text" />
@@ -118,55 +154,17 @@
 
         </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/textInputLayout9"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
-            android:layout_width="300dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textInputLayout8">
-
-            <AutoCompleteTextView
-                android:id="@+id/plant_reg_task"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Растение"
-                android:inputType="none" />
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/textInputLayout10"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="300dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textInputLayout9">
-
-            <EditText
-                android:id="@+id/time_start_task"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Время начала"
-                android:inputType="datetime"
-                android:maxLength="20"
-                app:endIconMode="clear_text" />
-        </com.google.android.material.textfield.TextInputLayout>
-
         <Button
             android:id="@+id/btn_save_reg_task"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginVertical="20dp"
             android:layout_marginHorizontal="40dp"
+            app:cornerRadius = "30dp"
             android:text="Создать"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textInputLayout10" />
+            app:layout_constraintTop_toBottomOf="@+id/textInputLayout8" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-</androidx.cardview.widget.CardView>
+</FrameLayout>

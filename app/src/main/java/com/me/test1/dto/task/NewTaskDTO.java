@@ -27,6 +27,17 @@ public class NewTaskDTO {
     @SerializedName("endDate")
     @Expose
     private LocalDateTime endDate;
+    @SerializedName("sendNotification")
+    @Expose
+    private Boolean sendNotification;
+
+    public Boolean getSendNotification() {
+        return sendNotification;
+    }
+
+    public void setSendNotification(Boolean sendNotification) {
+        this.sendNotification = sendNotification;
+    }
 
     public Boolean getEnabled() {
         return enabled;

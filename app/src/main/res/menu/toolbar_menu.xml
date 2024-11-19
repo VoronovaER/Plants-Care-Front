@@ -8,6 +8,11 @@
         app:showAsAction="always"/>
 
     <item
+        android:id ="@+id/Info"
+        android:title = "Справка"
+        app:showAsAction=""/>
+
+    <item
         android:id = "@+id/logout"
         android:title="Выйти"
         app:showAsAction="never"/>

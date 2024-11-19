@@ -1,26 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="10dp"
-    app:cardCornerRadius="10dp"
-    app:cardElevation="10dp"
 
     tools:context=".ui.home.EditFloristInfoFragment">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal">
+            android:layout_height="wrap_content">
 
             <Button
                 android:id="@+id/btn_back_edit_florist"
                 style="?android:attr/borderlessButtonStyle"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:layout_margin="10dp"
+                android:layout_margin="20dp"
                 android:background="@drawable/back_svgrepo_com"
                 android:backgroundTint="@color/white"
                 android:textColor="@color/main_green"
@@ -83,6 +79,7 @@
                 android:id="@+id/btn_save_edit_florist"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                app:cornerRadius = "30dp"
                 android:text="Сохранить"
                 android:layout_marginTop="40dp"
                 app:layout_constraintEnd_toEndOf="@+id/textInputLayout5"
@@ -90,4 +87,4 @@
                 app:layout_constraintTop_toBottomOf="@+id/textInputLayout5" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-</androidx.cardview.widget.CardView>
+</FrameLayout>

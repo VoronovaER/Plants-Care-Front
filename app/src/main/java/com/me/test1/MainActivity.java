@@ -1,5 +1,6 @@
 package com.me.test1;
 
+import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
@@ -56,6 +57,15 @@ public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MyFirebaseMsgService";
     private static final String TAG_LAUNCH = "Launch";
 
+    private final ActivityResultLauncher<String> requestPermissionLauncher =
+            registerForActivityResult(new ActivityResultContracts.RequestPermission(), isGranted -> {
+                if (isGranted) {
+                    Log.e(TAG_LAUNCH, "PERMISSION_GRANTED");
+                } else {
+                    Toast.makeText(this, "Приложение не будет отправлять напоминания", Toast.LENGTH_LONG).show();
+                }
+            });
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,6 +77,7 @@ public class MainActivity extends AppCompatActivity {
             Info.setEmail(FirebaseAuth.getInstance().getCurrentUser().getEmail());
             setContentView(R.layout.activity_main);
             plantTypeApi = ApiClient.getClient().create(PlantTypeApi.class);
+            askNotificationPermission();
 
             BottomNavigationView navView = findViewById(R.id.nav_view);
             AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
@@ -163,29 +174,15 @@ public class MainActivity extends AppCompatActivity {
         t.commit();
     }
 
-    private final ActivityResultLauncher<String> requestPermissionLauncher =
-            registerForActivityResult(new ActivityResultContracts.RequestPermission(), isGranted -> {
-                if (isGranted) {
-                    // FCM SDK (and your app) can post notifications.
-                } else {
-                    // TODO: Inform user that that your app will not show notifications.
-                }
-            });
-
-    /*private void askNotificationPermission() {
+    private void askNotificationPermission() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             if (ContextCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS) ==
                     PackageManager.PERMISSION_GRANTED) {
-                // FCM SDK (and your app) can post notifications.
-            } else if (shouldShowRequestPermissionRationale(Manifest.permission.POST_NOTIFICATIONS)) {
-                // TODO: display an educational UI explaining to the user the features that will be enabled
-                //       by them granting the POST_NOTIFICATION permission. This UI should provide the user
-                //       "OK" and "No thanks" buttons. If the user selects "OK," directly request the permission.
-                //       If the user selects "No thanks," allow the user to continue without notifications.
-            } else {
-                // Directly ask for the permission
-                requestPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS);
+                Log.e(TAG_LAUNCH, "PERMISSION_GRANTED");
+            }else {
+                Log.e(TAG_LAUNCH, "NO_PERMISSION");
+                requestPermissionLauncher.launch(android.Manifest.permission.POST_NOTIFICATIONS);
             }
         }
-    }*/
+    }
 }

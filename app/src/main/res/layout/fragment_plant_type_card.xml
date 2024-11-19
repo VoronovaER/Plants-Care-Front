@@ -6,71 +6,103 @@
     android:layout_height="match_parent"
     tools:context=".ui.dashboard.PlantTypeCardFragment">
 
-    <ImageView
-        android:id="@+id/PlantTypeImage"
-        android:layout_width="300dp"
-        android:layout_height="200dp"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="60dp"
-        tools:src="@tools:sample/avatars" />
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-    <TextView
-        android:id="@+id/PlantTypeName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="260dp"
-        android:layout_gravity="center_horizontal"
-        android:textStyle="bold"
-        android:text  = "Название"
-        android:textSize = "30sp"
-        android:textColor="@color/main_green"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-    <Button
-        android:id="@+id/btnFrag1"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:background="@drawable/back_svgrepo_com"
-        android:textColor="@color/main_green"
-        android:backgroundTint="@color/white"
-        android:layout_margin="20dp"
-        android:layout_gravity="start"
-        android:layout_marginTop="0dp"
-        style="?android:attr/borderlessButtonStyle"/>
+            <Button
+                android:id="@+id/btnFrag1"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:background="@drawable/back_svgrepo_com"
+                android:textColor="@color/main_green"
+                android:backgroundTint="@color/white"
+                android:layout_margin="10dp"
+                android:layout_gravity="start"
+                style="?android:attr/borderlessButtonStyle"/>
 
-    <TextView
-        android:id="@+id/PlantTypeLatinName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="295dp"
-        android:textStyle="italic"
-        android:textSize="18sp"
-        android:layout_gravity="center_horizontal"
-        android:text="Латинское название" />
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardElevation="10dp"
+                app:cardCornerRadius="10dp"
+                android:layout_margin="5dp">
 
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="380dp"
-        android:layout_marginStart="20dp"
-        android:text="Описание"
-        android:textSize="16sp"
-        android:textColor="@color/main_green"
-        android:textStyle="bold"/>
+                <ImageView
+                    android:id="@+id/PlantTypeImage"
+                    android:layout_width="300dp"
+                    android:layout_height="200dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="20dp"
+                    tools:src="@tools:sample/avatars" />
 
-    <TextView
-        android:id="@+id/PlantTypeDescription"
-        android:layout_width="315dp"
-        android:layout_height="352dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="410dp"
-        android:text="Текст описания" />
+                <TextView
+                    android:id="@+id/PlantTypeName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="230dp"
+                    android:layout_gravity="center_horizontal"
+                    android:textStyle="bold"
+                    android:text  = "Название"
+                    android:textSize = "30sp"
+                    android:textColor="@color/main_green"/>
 
-    <Button
-        android:id="@+id/btnAdd"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="330dp"
-        android:layout_gravity="center_horizontal"
-        android:text="+Добавить" />
+                <TextView
+                    android:id="@+id/PlantTypeLatinName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="270dp"
+                    android:layout_marginBottom="20dp"
+                    android:textStyle="italic"
+                    android:textSize="18sp"
+                    android:layout_gravity="center_horizontal"
+                    android:text="Латинское название" />
+            </androidx.cardview.widget.CardView>
+
+            <Button
+                android:id="@+id/btnAdd"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="0dp"
+                android:textSize="18sp"
+                android:text="+Добавить"
+                app:cornerRadius="30dp" />
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="10dp"
+                app:cardElevation="10dp"
+                android:layout_margin="5dp">
+
+                <TextView
+                    android:id="@+id/textView2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginStart="20dp"
+                    android:text="Описание"
+                    android:textSize="20sp"
+                    android:textColor="@color/main_green"
+                    android:textStyle="bold"/>
+
+                <TextView
+                    android:id="@+id/PlantTypeDescription"
+                    android:layout_width="315dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="50dp"
+                    android:text="Текст описания"
+                    android:textColor="@color/grey"
+                    android:layout_marginBottom="20dp"
+                    android:textSize="16dp" />
+            </androidx.cardview.widget.CardView>
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
 </FrameLayout>

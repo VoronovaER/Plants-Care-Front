@@ -4,17 +4,17 @@
 
     <item
         android:id="@+id/navigation_dashboard"
-        android:icon="@drawable/plant_svgrepo_com"
+        android:icon="@drawable/home_bottom_nav"
         android:title="@string/title_catalog" />
 
     <item
         android:id="@+id/navigation_notifications"
-        android:icon="@drawable/baseline_calendar"
+        android:icon="@drawable/calendar_bottom_nav"
         android:title="@string/title_calendar" />
 
     <item
         android:id="@+id/navigation_home"
-        android:icon="@drawable/ic_home_black_24dp"
+        android:icon="@drawable/plant_bottom_nav"
         android:title="@string/title_greenhouse" />
 
 </menu>

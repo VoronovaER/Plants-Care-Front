@@ -85,6 +85,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="120dp"
                         android:layout_marginStart="190dp"
+                        app:cornerRadius = "30dp"
                         android:text="Редактировать"
                         android:textSize="9sp" />
                 </androidx.cardview.widget.CardView>
