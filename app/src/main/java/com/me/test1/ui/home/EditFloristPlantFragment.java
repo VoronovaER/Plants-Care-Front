@@ -67,6 +67,7 @@ public class EditFloristPlantFragment extends Fragment {
                     @Override
                     public void onResponse(Call<PlantDTO> call, Response<PlantDTO> response) {
                         Toast.makeText(getContext(), "Данные успешно сохранены", Toast.LENGTH_SHORT).show();
+                        ((MainActivity)getActivity()).replaceFragmentPlantCard(plant.getPlantListRecordDTO(), Info.getId());
                     }
 
                     @Override

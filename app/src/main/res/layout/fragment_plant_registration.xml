@@ -33,12 +33,12 @@
                 android:id="@+id/btn_save_reg_plant"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="40dp"
-                app:cornerRadius = "30dp"
                 android:text="Сохранить"
+                app:cornerRadius="30dp"
+                android:layout_marginTop="20dp"
                 app:layout_constraintEnd_toEndOf="@+id/textInputLayout3"
                 app:layout_constraintStart_toStartOf="@+id/textInputLayout3"
-                app:layout_constraintTop_toBottomOf="@+id/textInputLayout3" />
+                app:layout_constraintTop_toBottomOf="@+id/plant_img_reg" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/textInputLayout2"
@@ -97,6 +97,25 @@
                     android:inputType="textLongMessage"
                     android:maxLength="150" />
             </com.google.android.material.textfield.TextInputLayout>
+
+            <ImageView
+                android:id="@+id/plant_img_reg"
+                android:layout_width="130dp"
+                android:layout_height="130dp"
+                android:layout_marginStart="20dp"
+                app:layout_constraintStart_toEndOf="@+id/pickImage"
+                app:layout_constraintTop_toTopOf="@+id/pickImage" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/pickImage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="20dp"
+                android:text="Выбрать картинку"
+                android:textSize="10sp"
+                app:layout_constraintStart_toStartOf="@+id/textInputLayout3"
+                app:layout_constraintTop_toBottomOf="@+id/textInputLayout3" />
 
             <TextView
                 android:id="@+id/textView4"

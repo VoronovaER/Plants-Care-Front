@@ -2,6 +2,7 @@ package com.me.test1.network;
 
 
 import com.google.android.gms.common.internal.safeparcel.SafeParcelable;
+import com.me.test1.ImageDTO;
 import com.me.test1.dto.florist.BaseFloristDTO;
 import com.me.test1.dto.florist.FloristDTO;
 import com.me.test1.dto.florist.FloristTaskDTO;
@@ -14,10 +15,13 @@ import com.me.test1.dto.planttype.PlantTypeListRecordDTO;
 import com.me.test1.dto.task.NewTaskDTO;
 import com.me.test1.dto.task.TaskDTO;
 import com.me.test1.dto.task.TaskListRecordDTO;
+import com.me.test1.dto.task.TaskRunStatus;
 
 import java.time.LocalDate;
 import java.util.List;
 
+import okhttp3.MultipartBody;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
@@ -74,4 +78,14 @@ public interface PlantTypeApi {
 
     @POST("api/v1/task/add/{floristId}")
     Call<TaskDTO> createTask(@Path("floristId") Long id, @Body NewTaskDTO taskDTO);
+
+    @POST("api/v1/image/{floristId}")
+    @Multipart
+    Call<String> uploadImage(@Part MultipartBody.Part image, @Path("floristId") Long floristId);
+
+    @GET("api/v1/image/{floristId}")
+    Call<ResponseBody> getImage(@Path("floristId") String fileId);
+
+    @PUT("api/v1/task/run/{id}/{status}")
+    Call<Void> changeStatus(@Path("id") Long id, @Path("status") TaskRunStatus status);
 }

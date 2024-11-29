@@ -51,11 +51,17 @@ import com.me.test1.ui.notifications.TaskRegistrationFragment;
 import java.time.LocalDate;
 import java.util.Objects;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class MainActivity extends AppCompatActivity {
 
     PlantTypeApi plantTypeApi;
     private static final String TAG = "MyFirebaseMsgService";
     private static final String TAG_LAUNCH = "Launch";
+    private FirebaseAuth mAuth = FirebaseAuth.getInstance();
+    private static Boolean isAuth = false;
 
     private final ActivityResultLauncher<String> requestPermissionLauncher =
             registerForActivityResult(new ActivityResultContracts.RequestPermission(), isGranted -> {
@@ -70,13 +76,28 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        if (FirebaseAuth.getInstance().getCurrentUser() == null) {
+
+        if (mAuth.getCurrentUser() != null){
+            mAuth.getCurrentUser().reload().addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+                    Boolean useremail  = mAuth.getCurrentUser().isEmailVerified();
+                    if (useremail) {
+                        isAuth = true;
+                    }else{
+                        Log.d(TAG, "createUserWithEmail:failure");
+                    }
+                }
+            });
+        }
+        if (FirebaseAuth.getInstance().getCurrentUser() == null || !isAuth) {
             Intent intent = new Intent(this, Authorization.class);
             startActivity(intent);
         } else {
             Info.setEmail(FirebaseAuth.getInstance().getCurrentUser().getEmail());
             setContentView(R.layout.activity_main);
             plantTypeApi = ApiClient.getClient().create(PlantTypeApi.class);
+
             askNotificationPermission();
 
             BottomNavigationView navView = findViewById(R.id.nav_view);

@@ -70,6 +70,7 @@ public class EditFloristInfoFragment extends Fragment {
                         if(response.isSuccessful()){
                             Toast.makeText(getContext(), "Данные успешно сохранены", Toast.LENGTH_SHORT).show();
                             Info.setName(response.body().getName());
+                            ((MainActivity)getActivity()).replaceFragmentHome();
                         }else{
                             Toast.makeText(getContext(), "Ошибка сохранения данных", Toast.LENGTH_SHORT).show();
                         }

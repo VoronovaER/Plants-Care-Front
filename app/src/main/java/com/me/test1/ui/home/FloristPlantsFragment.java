@@ -118,9 +118,7 @@ public class FloristPlantsFragment extends Fragment {
         popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
-                if (item.getItemId() == R.id.settings){
-                    Toast.makeText(requireContext(), "Settings", Toast.LENGTH_SHORT).show();
-                }else if(item.getItemId() == R.id.logout){
+                if(item.getItemId() == R.id.logout){
                     Info.setId(null);
                     Info.setName(null);
                     Info.setAvatar(null);

@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CalendarView;
+import android.widget.CheckBox;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,6 +21,7 @@ import com.me.test1.MainActivity;
 import com.me.test1.R;
 import com.me.test1.dto.florist.FloristTaskDTO;
 import com.me.test1.dto.task.TaskListRecordDTO;
+import com.me.test1.dto.task.TaskRunStatus;
 import com.me.test1.network.ApiClient;
 import com.me.test1.network.PlantTypeApi;
 import com.me.test1.ui.home.PlantTasksAdapter;
@@ -37,7 +39,7 @@ public class DateNotificationFragment extends Fragment {
     private CalendarView calendar;
     private TextView date;
     private String[] months = {"января", "февраля", "марта", "апреля", "мая", "июня", "июля", "августа", "сентября", "октября","ноября", "декабря"};
-    private PlantTypeApi plantTypeApi;
+    private PlantTypeApi plantTypeApi = ApiClient.getClient().create(PlantTypeApi.class);
     protected RecyclerView.LayoutManager manager;
     protected DateNotificationAdapter adapter;
     private Button create;
@@ -62,12 +64,12 @@ public class DateNotificationFragment extends Fragment {
         DateNotificationAdapter.OnClickListener clickListener = (task, position) ->
                 Toast.makeText(getContext(), task.getTask().getName(), Toast.LENGTH_SHORT).show();
 
+
         manager = new LinearLayoutManager(requireContext());
         rv.setLayoutManager(manager);
         adapter = new DateNotificationAdapter(clickListener, dataset);
         rv.setAdapter(adapter);
 
-        plantTypeApi = ApiClient.getClient().create(PlantTypeApi.class);
         changedDate(rv, chosenDate.getYear(), chosenDate.getMonthValue(), chosenDate.getDayOfMonth());
 
         calendar.setOnDateChangeListener((view, year, month, dayOfMonth) -> {
@@ -76,6 +78,7 @@ public class DateNotificationFragment extends Fragment {
             chosenDate = LocalDate.of(year, month+1, dayOfMonth);
             changedDate(rv, year, month+1, dayOfMonth);
         });
+
 
         create.setOnClickListener(new View.OnClickListener() {
             @Override

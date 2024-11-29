@@ -2,6 +2,9 @@ package com.me.test1.ui.home;
 
 import android.annotation.SuppressLint;
 import android.content.DialogInterface;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.activity.OnBackPressedCallback;
@@ -11,6 +14,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +24,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.me.test1.MainActivity;
 import com.me.test1.R;
 import com.me.test1.dto.plant.PlantDTO;
@@ -27,14 +32,20 @@ import com.me.test1.dto.plant.PlantListRecordDTO;
 import com.me.test1.dto.planttype.PlantTypeListRecordDTO;
 import com.me.test1.dto.task.TaskListRecordDTO;
 import com.me.test1.network.ApiClient;
+import com.me.test1.network.DownloadFile;
 import com.me.test1.network.PlantTypeApi;
 import com.me.test1.ui.dashboard.PlantTypeAdapter;
 import com.squareup.picasso.Picasso;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -99,11 +110,31 @@ public class FloristPlantInfoFragment extends Fragment {
                     }else{
                         description.setText("Нет описания");
                     }
-                    if (!Objects.equals(plantDTO.getUrl(), null)) {
-                        Picasso.with(requireContext())
-                                .load(plantDTO.getUrl())
-                                .resize(300,200)
-                                .into(img);
+                    if (!plantDTO.getUrl().startsWith("http")) {
+                        plantTypeApi.getImage(plantDTO.getUrl()).enqueue(new Callback<ResponseBody>() {
+                            @Override
+                            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                                if (response.isSuccessful()) {
+                                    //Log.d("Image", response.body().byteStream().toString());
+                                    InputStream body= response.body().byteStream();
+                                    DownloadFile downloadFile = new DownloadFile();
+                                    File file = downloadFile.download(body);
+                                    if (file != null) {
+                                        img.setImageBitmap(BitmapFactory.decodeFile(file.getAbsolutePath()));
+                                    }else{
+                                        Log.d("Image", "download returned null");
+                                    }
+
+                                }else{
+                                    Log.e("Error", response.errorBody().toString());
+                                }
+                            }
+
+                            @Override
+                            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                                Log.e("Error", t.getMessage());
+                            }
+                        });
                     }else{
                         Picasso.with(requireContext())
                                 .load(plantDTO.getPlantType().getUrl())

@@ -14,7 +14,7 @@
         android:id="@+id/plant_task_item_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
+        android:layout_marginTop = "20dp"
         android:layout_marginStart="20dp"
         android:text="TextView"
         android:textColor="@color/main_green"
@@ -25,8 +25,18 @@
         android:id="@+id/plant_task_item_period"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="200dp"
-        android:layout_gravity="center_vertical"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="40dp"
+        android:layout_gravity="start"
         android:text="TextView"
         android:textSize="18sp" />
+
+    <ImageView
+        android:id="@+id/plant_task_img"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_gravity="end"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="20dp"
+        tools:srcCompat="@tools:sample/avatars" />
 </androidx.cardview.widget.CardView>

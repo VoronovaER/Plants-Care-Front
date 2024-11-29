@@ -90,4 +90,9 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
         notificationManager.notify(0, notificationBuilder.build());
     }
+
+    @Override
+    public void onDeletedMessages(){
+        Log.d(TAG, "onDeletedMessages");
+    }
 }

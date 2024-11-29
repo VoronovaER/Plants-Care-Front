@@ -43,7 +43,7 @@ public class TaskRegistrationFragment extends Fragment {
     private LocalDate date;
     private PlantTypeApi plantTypeApi;
     private TextInputEditText name;
-    private EditText startTime, endDate;
+    private Button startTime, endDate;
     private AutoCompleteTextView type, period, plant;
     private ArrayList<PlantListRecordDTO> plants= new ArrayList<PlantListRecordDTO>();
     private String[] types = {"Полив", "Удобрение", "Прополка"};
@@ -110,39 +110,42 @@ public class TaskRegistrationFragment extends Fragment {
         save.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                try {
-                    startDateTime = LocalDateTime.of(date.getYear(), date.getMonthValue(), date.getDayOfMonth(), sHour, sMinute);
-                    endDateTime = LocalDateTime.of(eYear, eMonth, eDay, eHour, eMinute);
-                } catch (Exception e) {
-                    Toast.makeText(getContext(), "Неверный формат времени", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                NewTaskDTO newTaskDTO = new NewTaskDTO();
-                newTaskDTO.setName(name.getText().toString());
-                newTaskDTO.setType(getTaskType(type.getText().toString()).toString());
-                newTaskDTO.setPeriod(getTaskPeriod(period.getText().toString()).toString());
-                newTaskDTO.setPlant(plant.getText().toString());
-                newTaskDTO.setStartDate(startDateTime);
-                newTaskDTO.setEndDate(endDateTime);
-                newTaskDTO.setEnabled(true);
-                newTaskDTO.setSendNotification(true);
-
-                plantTypeApi.createTask(Info.getId(), newTaskDTO).enqueue(new Callback<TaskDTO>() {
-                    @Override
-                    public void onResponse(Call<TaskDTO> call, Response<TaskDTO> response) {
-                        if (response.isSuccessful()) {
-                            Toast.makeText(getContext(), "Задача успешно создана", Toast.LENGTH_SHORT).show();
-                            ((MainActivity) getActivity()).replaceDateNotificationsFragment();
-                        }else{
-                            Toast.makeText(getContext(), "Ошибка создания задачи", Toast.LENGTH_SHORT).show();
+                if (name.getText().toString().isEmpty() || type.getText().toString().isEmpty() || period.getText().toString().isEmpty() || plant.getText().toString().isEmpty()){
+                    Toast.makeText(getContext(), "Заполните все поля", Toast.LENGTH_SHORT).show();
+                }else{
+                    try {
+                        startDateTime = LocalDateTime.of(date.getYear(), date.getMonthValue(), date.getDayOfMonth(), sHour, sMinute);
+                        endDateTime = LocalDateTime.of(eYear, eMonth, eDay, eHour, eMinute);
+                    } catch (Exception e) {
+                        Toast.makeText(getContext(), "Укажите время", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                    NewTaskDTO newTaskDTO = new NewTaskDTO();
+                    newTaskDTO.setName(name.getText().toString());
+                    newTaskDTO.setType(getTaskType(type.getText().toString()).toString());
+                    newTaskDTO.setPeriod(getTaskPeriod(period.getText().toString()).toString());
+                    newTaskDTO.setPlant(plant.getText().toString());
+                    newTaskDTO.setStartDate(startDateTime);
+                    newTaskDTO.setEndDate(endDateTime);
+                    newTaskDTO.setEnabled(true);
+                    newTaskDTO.setSendNotification(true);
+                    plantTypeApi.createTask(Info.getId(), newTaskDTO).enqueue(new Callback<TaskDTO>() {
+                        @Override
+                        public void onResponse(Call<TaskDTO> call, Response<TaskDTO> response) {
+                            if (response.isSuccessful()) {
+                                Toast.makeText(getContext(), "Задача успешно создана", Toast.LENGTH_SHORT).show();
+                                ((MainActivity) getActivity()).replaceDateNotificationsFragment();
+                            }else{
+                                Toast.makeText(getContext(), "Ошибка создания задачи", Toast.LENGTH_SHORT).show();
+                            }
                         }
-                    }
 
-                    @Override
-                    public void onFailure(Call<TaskDTO> call, Throwable throwable) {
-                        Toast.makeText(getContext(), throwable.getMessage(), Toast.LENGTH_SHORT).show();
-                    }
-                });
+                        @Override
+                        public void onFailure(Call<TaskDTO> call, Throwable throwable) {
+                            Toast.makeText(getContext(), throwable.getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                }
             }
         });
         return v;
@@ -185,7 +188,7 @@ public class TaskRegistrationFragment extends Fragment {
 
         TimePickerDialog timePickerDialog = new TimePickerDialog(requireContext(),
                 (view, hourOfDay, minute) -> {
-                    startTime.setText(hourOfDay + ":" + minute);
+                    startTime.setText("Время начала: " + hourOfDay + ":" + minute);
                     sHour = hourOfDay;
                     sMinute = minute;
                 }, sHour, sMinute, true);
@@ -217,7 +220,7 @@ public class TaskRegistrationFragment extends Fragment {
 
         TimePickerDialog timePickerDialog = new TimePickerDialog(requireContext(),
                 (view, hourOfDay, minute) -> {
-                    endDate.setText(hourOfDay + ":" + minute + " " + end_date);
+                    endDate.setText("Дата и время окончания: " + hourOfDay + ":" + minute + " " + end_date);
                     eHour = hourOfDay;
                     eMinute = minute;
                 }, eHour, eMinute, true);

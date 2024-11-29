@@ -55,36 +55,35 @@
                     app:endIconMode="clear_text" />
             </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/textInputLayout5"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="300dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="40dp"
-                app:layout_constraintEnd_toEndOf="@+id/textInputLayout3"
-                app:layout_constraintStart_toStartOf="@+id/textInputLayout3"
-                app:layout_constraintTop_toBottomOf="@+id/textInputLayout3">
+            <ImageView
+                android:id="@+id/florist_img_reg"
+                android:layout_width="130dp"
+                android:layout_height="130dp"
+                android:layout_marginStart="20dp"
+                app:layout_constraintStart_toEndOf="@+id/pickImage1"
+                app:layout_constraintTop_toTopOf="@+id/pickImage1" />
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/email_edit_florist"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Электронная почта"
-                    android:inputType="textEmailAddress"
-                    android:maxLength="20"
-                    app:endIconMode="clear_text" />
-            </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/pickImage1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="20dp"
+                android:text="Выбрать картинку"
+                android:textSize="10sp"
+                app:layout_constraintStart_toStartOf="@+id/textInputLayout3"
+                app:layout_constraintTop_toBottomOf="@+id/textInputLayout3" />
 
             <Button
                 android:id="@+id/btn_save_edit_florist"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:cornerRadius = "30dp"
                 android:text="Сохранить"
-                android:layout_marginTop="40dp"
-                app:layout_constraintEnd_toEndOf="@+id/textInputLayout5"
-                app:layout_constraintStart_toStartOf="@+id/textInputLayout5"
-                app:layout_constraintTop_toBottomOf="@+id/textInputLayout5" />
+                app:cornerRadius="30dp"
+                android:layout_marginTop="20dp"
+                app:layout_constraintEnd_toEndOf="@+id/florist_img_reg"
+                app:layout_constraintStart_toStartOf="@+id/pickImage1"
+                app:layout_constraintTop_toBottomOf="@+id/florist_img_reg" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>
