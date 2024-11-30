@@ -92,6 +92,12 @@ public class DateNotificationFragment extends Fragment {
 
     void changedDate(RecyclerView rv, int year, int month, int dayOfMonth){
         dataset.clear();
+        DateNotificationAdapter.OnClickListener clickListener = (task, position) ->
+                Toast.makeText(getContext(), task.getTask().getName(), Toast.LENGTH_SHORT).show();
+        manager = new LinearLayoutManager(requireContext());
+        rv.setLayoutManager(manager);
+        adapter = new DateNotificationAdapter(clickListener, dataset);
+        rv.setAdapter(adapter);
         plantTypeApi.getTaskList(Info.getId(), LocalDate.of(year, month, dayOfMonth)).enqueue(new Callback<List<FloristTaskDTO>>() {
             @Override
             public void onResponse(Call<List<FloristTaskDTO>> call, Response<List<FloristTaskDTO>> response) {

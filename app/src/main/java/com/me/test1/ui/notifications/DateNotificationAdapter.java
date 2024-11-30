@@ -27,6 +27,7 @@ import com.me.test1.network.ApiClient;
 import com.me.test1.network.PlantTypeApi;
 import com.squareup.picasso.Picasso;
 
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
@@ -112,7 +113,7 @@ public class DateNotificationAdapter extends RecyclerView.Adapter<DateNotificati
 
         if(task.getTaskRun() != null){
             holder.checkBox.setVisibility(View.VISIBLE);
-            if (task.getTaskRun().getStatus().equals(TaskRunStatus.COMPLETED)) {
+            if (task.getTaskRun().getStatus().equals(TaskRunStatus.COMPLETED) && task.getLocalDateTime().isBefore(LocalDateTime.now())) {
                 holder.getCheckBox().setChecked(true);
                 holder.name.setTextColor(Color.GRAY);
                 holder.type.setTextColor(Color.GRAY);
