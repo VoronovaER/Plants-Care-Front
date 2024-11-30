@@ -1,9 +1,5 @@
 package com.me.test1;
 
-import static android.app.PendingIntent.getActivity;
-
-import static java.security.AccessController.getContext;
-
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
@@ -90,17 +86,7 @@ public class Authorization extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             Log.d(TAG, "signInWithEmail:success");
-                            mAuth.getCurrentUser().reload().addOnCompleteListener(new OnCompleteListener<Void>() {
-                                @Override
-                                public void onComplete(@NonNull Task<Void> task) {
-                                    Boolean useremail  = mAuth.getCurrentUser().isEmailVerified();
-                                    if (useremail) {
-                                        successLogin();
-                                    }else{
-                                        Log.d(TAG, "createUserWithEmail:failure");
-                                    }
-                                }
-                            });
+                            successLogin();
                         } else if(task.getException().toString().equals("com.google.firebase.auth.FirebaseAuthInvalidCredentialsException")){
                             Log.w(TAG, "signInWithEmail:failure", task.getException());
                             Toast.makeText(Authorization.this, "Неверные данные",
@@ -108,60 +94,31 @@ public class Authorization extends AppCompatActivity {
                         }else if (task.getException().toString().equals("com.google.firebase.auth.FirebaseAuthUserCollisionException")){
                             Log.w(TAG, "signInWithEmail:failure", task.getException());
                             Toast.makeText(Authorization.this, "Пользователь уже существует, войдите в аккаунт",
-                               Toast.LENGTH_LONG).show();
+                                    Toast.LENGTH_LONG).show();
                         }else{
                             Log.w(TAG, "signInWithEmail:failure", task.getException());
                             Toast.makeText(Authorization.this, "Ошибка",
-                               Toast.LENGTH_SHORT).show();
+                                    Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
     }
 
     public void register() {
-        if (mAuth.getCurrentUser() == null) {
-            mAuth.createUserWithEmailAndPassword(email.getText().toString(), password.getText().toString())
-                    .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                        @Override
-                        public void onComplete(@NonNull Task<AuthResult> task) {
-                            if (task.isSuccessful()) {
-                                Log.d(TAG, "createUserWithEmail");
-                                successRegistration();
-                                if (!mAuth.getCurrentUser().isEmailVerified()) {
-                                    FirebaseUser user = mAuth.getCurrentUser();
-                                    user.sendEmailVerification()
-                                            .addOnCompleteListener(Authorization.this, new OnCompleteListener<Void>() {
-                                                @Override
-                                                public void onComplete(@NonNull Task task) {
-                                                    btnText.setEnabled(true);
-
-                                                    if (task.isSuccessful()) {
-                                                        Toast.makeText(Authorization.this,
-                                                                "Письмо с подтверждением отправлено",
-                                                                Toast.LENGTH_SHORT).show();
-                                                    } else {
-                                                        Log.e(TAG, "sendEmailVerification", task.getException());
-                                                        Toast.makeText(Authorization.this,
-                                                                "Ошибка при отправке письма с подтверждением",
-                                                                Toast.LENGTH_SHORT).show();
-                                                    }
-                                                }
-                                            });
-                                }
-                            } else if (task.getException().toString().equals("com.google.firebase.auth.FirebaseAuthUserCollisionException")) {
-                                Log.w(TAG, "createUserWithEmail", task.getException());
-                                Toast.makeText(Authorization.this, "Пользователь с таким email уже существует",
-                                        Toast.LENGTH_SHORT).show();
-                            } else {
-                                Log.w(TAG, "createUserWithEmail", task.getException());
-                                Toast.makeText(Authorization.this, "Неверные данные",
-                                        Toast.LENGTH_SHORT).show();
-                            }
+        mAuth.createUserWithEmailAndPassword(email.getText().toString(), password.getText().toString())
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            Log.d(TAG, "createUserWithEmail:success");
+                            successRegistration();
+                        }else{
+                            Log.w(TAG, "createUserWithEmail:failure", task.getException());
+                            Toast.makeText(Authorization.this, "Неверные данные",
+                                    Toast.LENGTH_SHORT).show();
                         }
-                    });
-        }else{
-            Log.d(TAG, "createUserWithEmail:failure");
-        }
+                    }
+                });
     }
 
     public void Registration(View view) {
@@ -191,8 +148,7 @@ public class Authorization extends AppCompatActivity {
         plantTypeApi.createFlorist(florist).enqueue(new Callback<FloristDTO>() {
             @Override
             public void onResponse(Call<FloristDTO> call, Response<FloristDTO> response) {
-                //startActivity(new Intent(Authorization.this, MainActivity.class));
-                Log.d(TAG, response.body().toString());
+                startActivity(new Intent(Authorization.this, MainActivity.class));
             }
 
             @Override

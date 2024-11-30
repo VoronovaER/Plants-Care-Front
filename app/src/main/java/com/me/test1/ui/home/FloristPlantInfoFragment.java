@@ -165,6 +165,7 @@ public class FloristPlantInfoFragment extends Fragment {
                     plantTypeApi.deletePlant(plant.getId()).enqueue(new Callback<Void>() {
                         @Override
                         public void onResponse(Call<Void> call, Response<Void> response) {
+                            ((MainActivity)getActivity()).replaceFragmentHome();
                             Toast.makeText(getContext(), "Удалено", Toast.LENGTH_SHORT).show();
                         }
 

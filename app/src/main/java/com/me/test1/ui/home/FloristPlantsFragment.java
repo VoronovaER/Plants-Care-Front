@@ -2,12 +2,14 @@ package com.me.test1.ui.home;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -26,13 +28,17 @@ import com.me.test1.R;
 import com.me.test1.dto.florist.FloristDTO;
 import com.me.test1.dto.plant.PlantListRecordDTO;
 import com.me.test1.network.ApiClient;
+import com.me.test1.network.DownloadFile;
 import com.me.test1.network.PlantTypeApi;
 import com.squareup.picasso.Picasso;
 
+import java.io.File;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -60,6 +66,7 @@ public class FloristPlantsFragment extends Fragment {
         plantsQuantity = view.findViewById(R.id.floristPlantsQuantity);
         edit = view.findViewById(R.id.btnEditFloristInfo);
         ImageView menu = view.findViewById(R.id.btn_menu);
+        plantTypeApi = ApiClient.getClient().create(PlantTypeApi.class);
 
         name.setText(Info.getName());
         if (Objects.equals(Info.getAvatar(), null)){
@@ -68,13 +75,28 @@ public class FloristPlantsFragment extends Fragment {
                     .fit()
                     .centerCrop()
                     .into(image);
-        }else{
-            Picasso.with(requireContext())
-                    .load(Info.getAvatar())
-                    .fit()
-                    .centerCrop()
-                    .into(image);
+        }else {
+            plantTypeApi.getImage(Info.getAvatar()).enqueue(new Callback<ResponseBody>() {
+                @Override
+                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                    InputStream body= response.body().byteStream();
+                    Log.d("Image", body.toString());
+                    DownloadFile downloadFile = new DownloadFile();
+                    File file = downloadFile.download(body);
+                    if (file != null) {
+                        image.setImageBitmap(BitmapFactory.decodeFile(file.getAbsolutePath()));
+                    }else{
+                        Log.d("Image", "download returned null");
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<ResponseBody> call, Throwable throwable) {
+                    Log.e("Image", throwable.getMessage());
+                }
+            });
         }
+
 
         edit.setOnClickListener(v -> ((MainActivity)getActivity()).replaceFragmentEditFloristInfo());
 
@@ -87,7 +109,7 @@ public class FloristPlantsFragment extends Fragment {
         rv.setLayoutManager(manager);
         adapter = new PlantAdapter(clickListener, dataset);
         rv.setAdapter(adapter);
-        plantTypeApi = ApiClient.getClient().create(PlantTypeApi.class);
+
 
         plantTypeApi.getFloristPlants(Info.getId()).enqueue(new Callback<List<PlantListRecordDTO>>() {
             @Override

@@ -84,16 +84,32 @@
                     android:maxLength="20" />
             </com.google.android.material.textfield.TextInputLayout>
 
+            <ImageView
+                android:id="@+id/img_edit_plant"
+                android:layout_width="130dp"
+                android:layout_height="130dp"
+                app:layout_constraintEnd_toEndOf="@+id/textInputLayout12"
+                app:layout_constraintTop_toBottomOf="@+id/textInputLayout12" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/pickImage2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:text="Выбрать картинку"
+                android:textSize="10sp"
+                app:layout_constraintStart_toStartOf="@+id/textInputLayout12"
+                app:layout_constraintTop_toBottomOf="@+id/textInputLayout12" />
+
             <Button
                 android:id="@+id/btn_save_edit_plant"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="40dp"
-                app:cornerRadius = "30dp"
                 android:text="Сохранить"
-                app:layout_constraintEnd_toEndOf="@+id/textInputLayout12"
-                app:layout_constraintStart_toStartOf="@+id/textInputLayout12"
-                app:layout_constraintTop_toBottomOf="@+id/textInputLayout12" />
+                app:cornerRadius="30dp"
+                app:layout_constraintEnd_toEndOf="@+id/img_edit_plant"
+                app:layout_constraintStart_toStartOf="@+id/pickImage2"
+                app:layout_constraintTop_toBottomOf="@+id/img_edit_plant" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

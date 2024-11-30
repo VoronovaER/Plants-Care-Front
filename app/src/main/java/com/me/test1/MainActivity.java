@@ -60,9 +60,6 @@ public class MainActivity extends AppCompatActivity {
     PlantTypeApi plantTypeApi;
     private static final String TAG = "MyFirebaseMsgService";
     private static final String TAG_LAUNCH = "Launch";
-    private FirebaseAuth mAuth = FirebaseAuth.getInstance();
-    private static Boolean isAuth = false;
-
     private final ActivityResultLauncher<String> requestPermissionLauncher =
             registerForActivityResult(new ActivityResultContracts.RequestPermission(), isGranted -> {
                 if (isGranted) {
@@ -71,26 +68,10 @@ public class MainActivity extends AppCompatActivity {
                     Toast.makeText(this, "Приложение не будет отправлять напоминания", Toast.LENGTH_LONG).show();
                 }
             });
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-
-        if (mAuth.getCurrentUser() != null){
-            mAuth.getCurrentUser().reload().addOnCompleteListener(new OnCompleteListener<Void>() {
-                @Override
-                public void onComplete(@NonNull Task<Void> task) {
-                    Boolean useremail  = mAuth.getCurrentUser().isEmailVerified();
-                    if (useremail) {
-                        isAuth = true;
-                    }else{
-                        Log.d(TAG, "createUserWithEmail:failure");
-                    }
-                }
-            });
-        }
-        if (FirebaseAuth.getInstance().getCurrentUser() == null || !isAuth) {
+        if (FirebaseAuth.getInstance().getCurrentUser() == null) {
             Intent intent = new Intent(this, Authorization.class);
             startActivity(intent);
         } else {
